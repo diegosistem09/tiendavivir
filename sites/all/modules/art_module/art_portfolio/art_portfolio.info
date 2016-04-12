@@ -1,0 +1,9 @@
+name = Arrowtheme Portfolio
+description = "Provides full tools to create Isotope Portfolios."
+core = 7.x
+package = Arrowtheme Module
+
+dependencies[] = views
+dependencies[] = libraries
+
+files[] = views/art_portfolio_plugin_style_portfolio.inc

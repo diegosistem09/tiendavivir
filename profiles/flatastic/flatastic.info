@@ -1,0 +1,5 @@
+name = Flatastic
+description = Install profile for Flatastic themes
+version = VERSION
+core = 7.x
+files[] = flatastic.profile

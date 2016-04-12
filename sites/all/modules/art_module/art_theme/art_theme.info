@@ -1,0 +1,5 @@
+name = Arrowtheme Theme
+description = "Provides tools and layouts to manage the Arrowtheme Module theme."
+core = 7.x
+package = Arrowtheme Module
+dependencies[] = jquery_update

@@ -1,0 +1,29 @@
+<?php 
+
+/**
+ * @file
+ * Sets the requirements of responsive slideshow
+ */
+
+/**
+ * Implements hook_requirements
+ */
+function art_owlcarousel_requirements($phase) {
+	$requirements = array();
+	if ($phase == 'runtime') {
+		if (!libraries_get_path('owlcarousel')) {
+			$requirements['owlcarousel'] = array(
+				'title' => t('Owl Carousel'),
+				'value' => t('The Owl Carousel library is required.'),
+				'severity' => REQUIREMENT_WARNING,
+			);
+		} else {
+			$requirements['owlcarousel'] = array(
+				'title' => t('Owl Carousel'),
+				'value' => t('The Owl Carousel library is successfully installed.'),
+				'severity' => REQUIREMENT_OK,
+			);
+		}
+	}
+	return $requirements;
+}

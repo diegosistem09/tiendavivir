@@ -1,0 +1,8 @@
+name = Arrowtheme Shortcode
+description = "Provides the ability to add shortcodes to textareas."
+core = 7.x
+package = Arrowtheme Module
+
+dependencies[] = ckeditor
+dependencies[] = shortcode
+dependencies[] = libraries

@@ -1,0 +1,568 @@
+<?php
+
+module_load_include('inc', 'art_revolution', 'inc/slide');
+/* Implement hook_menu */
+
+function art_revolution_menu() {
+    $items = array();
+    $items['admin/art_revolution'] = array(
+        'title' => 'Revolution Slider',
+        'page callback' => 'art_revolution_list',
+        'access arguments' => array('admin_art_revolution'),
+        'type' => MENU_NORMAL_ITEM
+    );
+    $items['admin/art_revolution/add'] = array(
+        'title' => 'Add Slide',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('art_revolution_form'),
+        'access arguments' => array('admin_art_revolution'),
+        'type' => MENU_LOCAL_ACTION,
+        'file' => 'modify.art_revolution.php'
+    );
+    $items['admin/art_revolution/%/edit'] = array(
+        'title' => 'Edit Slide',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('art_revolution_form', 2),
+        'access arguments' => array('admin_art_revolution'),
+        'type' => MENU_CALLBACK,
+        'file' => 'modify.art_revolution.php'
+    );
+    $items['admin/art_revolution/%/editslides'] = array(
+        'title' => 'Edit Slide',
+        'page callback' => 'art_revolution_edit_sliders',
+        'page arguments' => array(2),
+        'access arguments' => array('admin_art_revolution'),
+        'type' => MENU_LOCAL_ACTION,
+        'context' => MENU_CONTEXT_INLINE
+    );
+    $items['admin/art_revolution/%/globalsettings'] = array(
+        'title' => 'Global Settings',
+        'page callback' => 'art_revolution_global_settings',
+        'page arguments' => array(2),
+        'access arguments' => array('admin_art_revolution'),
+        'type' => MENU_LOCAL_ACTION,
+        'context' => MENU_CONTEXT_INLINE
+    );
+    $items['admin/art_revolution/%/delete'] = array(
+        'title' => 'Edit Slide',
+        'page callback' => 'art_revolution_delete',
+        'page arguments' => array(2),
+        'access arguments' => array('admin_art_revolution'),
+        'type' => MENU_CALLBACK,
+    );
+    $items['admin/art_revolution/%/export'] = array(
+        'title' => 'Export Slide',
+        'page callback' => 'art_revolution_export',
+        'page arguments' => array(2),
+        'access arguments' => array('admin_art_revolution'),
+        'type' => MENU_LOCAL_ACTION,
+        'context' => MENU_CONTEXT_INLINE,
+        'file' => 'inc/export.inc',
+    );
+    $items['admin/art_revolution/import'] = array(
+        'title' => 'Import Slide',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('art_revolution_import_form'),
+        'access arguments' => array('admin_art_revolution'),
+        'type' => MENU_LOCAL_ACTION,
+        'file' => 'inc/import.inc',
+    );
+    $items['admin/art_revolution/save'] = array(
+        'title' => 'Edit Slider',
+        'page callback' => 'art_revolution_save',
+        'access arguments' => array('admin_art_revolution'),
+        'type' => MENU_CALLBACK
+    );
+    $items['admin/art_revolution/preview'] = array(
+        'title' => 'Slider Preview',
+        'page callback' => 'art_revolution_preview',
+        'access arguments' => array('admin_art_revolution'),
+        'type' => MENU_CALLBACK
+    );
+    $items['admin/art_revolution/settings'] = array(
+        'title' => 'Settings',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('art_revolution_settings_form'),
+        'access arguments' => array('admin_art_revolution'),
+        'type' => MENU_NORMAL_ITEM
+    );
+
+    // To use local task menu items, there must be a parent page.
+    $items['contextual'] = array(
+        'title' => 'The contextual example page',
+        'page callback' => 'contextual_example_page',
+        'page arguments' => array(
+            1
+        ),
+        'access callback' => TRUE
+    );
+
+    return $items;
+}
+
+/**
+ * Implements hook_permission()
+ */
+function art_revolution_permission() {
+    return array(
+        'admin_art_revolution' => array(
+            'title' => t('Administer Arrowtheme Revolution Slider'),
+        ),
+    );
+}
+
+function art_revolution_settings_form() {
+    $form['art_revolution_block_num'] = array(
+        '#type' => 'textfield',
+        '#title' => 'Number of blocks',
+        '#default_value' => variable_get('art_revolution_block_num', 1)
+    );
+    return system_settings_form($form);
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function art_revolution_block_info() {
+    $blocks = array();
+    $num = variable_get('art_revolution_block_num', 1);
+    for ($i = 1; $i <= $num; $i++) {
+        $blocks['art_revolution_block_' . $i] = array(
+            'info' => t('Revolution Slider Block ' . $i),
+            'cache' => DRUPAL_NO_CACHE
+        );
+    }
+    return $blocks;
+}
+
+/**
+ * Implements hook_block_configure().
+ */
+function art_revolution_block_configure($delta = '') {
+    $form = array();
+
+    if (str_replace('art_revolution_block_', '', $delta) != $delta) {
+        $results = $result = db_select('{art_revolution}', 'd')->fields('d', array(
+                    'id',
+                    'name'
+                ))->execute();
+        $options = array();
+        foreach ($results as $row) {
+            $options[$row->id] = $row->name;
+        }
+        $num = str_replace('art_revolution_block_', '', $delta);
+        $form['slide'] = array(
+            '#type' => 'select',
+            '#title' => t('Slideshow'),
+            '#options' => $options,
+            '#default_value' => variable_get('art_revolution_block_slide_' . $num),
+            '#description' => t('Select slideshow.')
+        );
+    }
+    return $form;
+}
+
+/**
+ * Implements hook_block_save().
+ */
+function art_revolution_block_save($delta = '', $edit = array()) {
+    if (str_replace('art_revolution_block_', '', $delta) != $delta) {
+        $num = str_replace('art_revolution_block_', '', $delta);
+        variable_set('art_revolution_block_slide_' . $num, $edit['slide']);
+    }
+}
+
+function art_revolution_block_view_alter(&$data, $block) {
+    if (str_replace('art_revolution_block_', '', $block->delta) != $block->delta) {
+        $num = str_replace('art_revolution_block_', '', $block->delta);
+        $sid = variable_get('art_revolution_block_slide_' . $num);
+        $contextual_links = array('admin/art_revolution', array($sid));
+        $data['content']['#contextual_links']['art_revolution_edit'] = $contextual_links;
+    }
+}
+
+function art_revolution_block_view($delta = '') {
+    $block = array();
+    if (str_replace('art_revolution_block_', '', $delta) != $delta) {
+        $num = str_replace('art_revolution_block_', '', $delta);
+        $slide = variable_get('art_revolution_block_slide_' . $num);
+        $block['content'] = menu_tree($delta);
+        $block['content']['#markup'] = art_revolution_block_content($slide);
+        $block['content']['#contextual_links']['menu'] = array('admin/structure/menu/manage', array($delta));
+    }
+    return $block;
+}
+
+function art_revolution_block_content($sid) {
+    $slideshow = art_revolution_load($sid);
+    if (!$slideshow)
+        return 'No slider selected';
+    $module_path = drupal_get_path('module', 'art_revolution');
+    drupal_add_js($module_path . '/rs-plugin/js/jquery.themepunch.plugins.min.js');
+    drupal_add_js($module_path . '/rs-plugin/js/jquery.themepunch.revolution.min.js');
+    drupal_add_css($module_path . '/rs-plugin/css/settings.css');
+    drupal_add_css($module_path . '/css/revolution.css');
+    return theme('art_revolution_slides', array(
+        'id' => $sid,
+        'slides' => $slideshow->slides,
+        'settings' => $slideshow->settings
+    ));
+}
+
+function art_revolution_list() {
+    $header = array('ID', 'Name', 'Edit Slider', 'Global Settings', 'Export', 'Delete');
+    $results = db_select('{art_revolution}', 'd')
+            ->fields('d', array('id', 'name'))
+            ->execute();
+    $rows = array();
+    foreach ($results as $row) {
+        $row->name = l($row->name, 'admin/art_revolution/' . $row->id . '/edit');
+        $row->edit = l('Edit Slider', 'admin/art_revolution/' . $row->id . '/editslides');
+        $row->globalsettings = l('Global Settings', 'admin/art_revolution/' . $row->id . '/globalsettings');
+        $row->export = l('Export', 'admin/art_revolution/' . $row->id . '/export');
+        $row->delete = l('Delete', 'admin/art_revolution/' . $row->id . '/delete');
+        $tmp = (array) $row;
+        $rows[] = $tmp;
+    }
+    return theme_table(array(
+        'header' => $header,
+        'rows' => $rows,
+        'attributes' => array(),
+        'caption' => '',
+        'colgroups' => array(),
+        'sticky' => false,
+        'empty' => t('No slider created yet.')
+    ));
+}
+
+function art_revolution_edit_sliders($id) {
+    require_once 'value.php';
+    include_once drupal_get_path('module', 'media') . '/wysiwyg_plugins/media.inc';
+    media_include_browser_js();
+    $capltionclasses_str = implode(' ', $captionclasses);
+    drupal_add_js('var $captionclasses = \'' . $capltionclasses_str . '\';', 'inline');
+    $module_path = drupal_get_path('module', 'art_revolution');
+    drupal_add_library('system', 'ui.draggable');
+    drupal_add_library('system', 'ui.dropable');
+    drupal_add_library('system', 'ui.sortable');
+    drupal_add_library('system', 'ui.dialog');
+    drupal_add_library('system', 'ui.tabs');
+    drupal_add_css($module_path . '/font-awesome/css/font-awesome.min.css');
+    drupal_add_css($module_path . '/css/admin.style.css');
+    drupal_add_js($module_path . '/js/art.revolution.js');
+    drupal_add_js($module_path . '/rs-plugin/js/jquery.themepunch.plugins.min.js');
+    drupal_add_js($module_path . '/rs-plugin/js/jquery.themepunch.revolution.min.js');
+    drupal_add_css($module_path . '/rs-plugin/css/settings.css');
+    $slideshow = art_revolution_load($id);
+    $destination = isset($_GET['destination']) ? $_GET['destination'] : 'admin/art_revolution';
+    $destination = url($destination);
+    $js = 'var destination = "' . $destination . '";var $settings=' . json_encode($slideshow->settings) . ';var $slides = ' . json_encode($slideshow->slides) . '; var $layers = new Array(); var $currentSlide=0; var $currentLayer=0;';
+    drupal_add_js($js, 'inline');
+    drupal_add_js(drupal_get_path('module', 'art_revolution') . '/js/admin.artrevolution.js');
+    ob_start();
+    include 'layout/layersettings.php';
+    $content = ob_get_clean();
+    return $content;
+}
+
+function art_revolution_global_settings($id) {
+    require_once 'value.php';
+    include_once drupal_get_path('module', 'media') . '/wysiwyg_plugins/media.inc';
+    media_include_browser_js();
+    $capltionclasses_str = implode(' ', $captionclasses);
+    drupal_add_js('var $captionclasses = \'' . $capltionclasses_str . '\';', 'inline');
+    $module_path = drupal_get_path('module', 'art_revolution');
+    drupal_add_library('system', 'ui.draggable');
+    drupal_add_library('system', 'ui.dropable');
+    drupal_add_library('system', 'ui.sortable');
+    drupal_add_library('system', 'ui.dialog');
+    drupal_add_library('system', 'ui.tabs');
+    drupal_add_css($module_path . '/font-awesome/css/font-awesome.min.css');
+    drupal_add_css($module_path . '/css/admin.style.css');
+    drupal_add_js($module_path . '/js/art.revolution.js');
+    drupal_add_js($module_path . '/rs-plugin/js/jquery.themepunch.plugins.min.js');
+    drupal_add_js($module_path . '/rs-plugin/js/jquery.themepunch.revolution.min.js');
+    drupal_add_css($module_path . '/rs-plugin/css/settings.css');
+    $slideshow = art_revolution_load($id);
+    $destination = isset($_GET['destination']) ? $_GET['destination'] : 'admin/art_revolution';
+    $destination = url($destination);
+    $js = 'var destination = "' . $destination . '";var $settings=' . json_encode($slideshow->settings) . ';var $slides = ' . json_encode($slideshow->slides) . '; var $layers = new Array(); var $currentSlide=0; var $currentLayer=0;';
+    drupal_add_js($js, 'inline');
+    drupal_add_js(drupal_get_path('module', 'art_revolution') . '/js/admin.artrevolution.js');
+    ob_start();
+    include 'layout/globalsettings.php';
+    $content = ob_get_clean();
+    return $content;
+}
+
+function art_revolution_delete($slideid) {
+    return drupal_get_form('art_revolution_confirm_form');
+}
+
+function art_revolution_confirm_form($form_state) {
+    $form = array();
+    $form['id'] = array(
+        '#type' => 'hidden',
+        '#default_value' => arg(2)
+    );
+    return confirm_form($form, 'Do you really want to detele this slide?', 'admin/art_revolution', NULL, 'Delete', 'Cancel');
+}
+
+function art_revolution_confirm_form_submit($form, &$form_state) {
+    $slideid = $form['id']['#value'];
+    db_delete('art_revolution')
+            ->condition('id', $slideid)
+            ->execute();
+    drupal_set_message('The slide has been deleted');
+    drupal_goto('admin/art_revolution');
+}
+
+function art_revolution_save() {
+    header('Content-type: application/json');
+    $sid = $_REQUEST['sid'];
+    $data = $_REQUEST['data'];
+    $settings = $_REQUEST['settings'];
+    db_update('{art_revolution}')->fields(array(
+        'data' => $data,
+        'settings' => $settings
+    ))->condition('id', $sid, '=')->execute();
+    $result = array(
+        'data' => 'saved'
+    );
+    print json_encode($result);
+    exit(0);
+}
+
+function art_revolution_preview() {
+    $sid = 1;
+    $slides = json_decode(base64_decode($_REQUEST['data']));
+    $settings = json_decode(base64_decode($_REQUEST['settings']));
+    print theme('art_revolution_block', array(
+        'sid' => $sid,
+        'slides' => $slides,
+        'settings' => $settings
+    ));
+    exit(0);
+}
+
+/* Implements hook_theme(). */
+
+function art_revolution_theme() {
+    $path = drupal_get_path('module', 'art_revolution');
+    $themes['art_revolution_slides'] = array(
+        'template' => 'slides',
+        'path' => $path . '/theme',
+        'pattern' => 'revolution__',
+        'preprocess functions' => array(
+            'template_preprocess',
+            'art_revolution_preprocess_slides',
+        ),
+        'variables' => array()
+    );
+    $themes['art_revolution_slide'] = array(
+        'template' => 'slide',
+        'path' => $path . '/theme',
+        'pattern' => 'revolution__',
+        'preprocess functions' => array(
+            'template_preprocess',
+            'art_revolution_preprocess_slide',
+        ),
+        'variables' => array()
+    );
+    $themes['art_revolution_layer'] = array(
+        'template' => 'layer',
+        'path' => $path . '/theme',
+        'pattern' => 'revolution__',
+        'preprocess functions' => array(
+            'template_preprocess',
+            'art_revolution_preprocess_layer',
+        ),
+        'variables' => array()
+    );
+    return $themes;
+}
+
+function art_revolution_preprocess_slides(&$vars) {
+    $vars['theme_hook_suggestions'][] = 'revolution__slides';
+    $slides = $vars['slides'];
+    $settings = $vars['settings'];
+    $html_id = drupal_html_id('art_revolution');
+    $vars['id'] = $html_id;
+    $vars['attributes_array']['id'] = $html_id;
+    $vars['attributes_array']['class'] = 'slider-revolution tp-banner-container tp-simpleresponsive';
+    $vars['attributes_array']['style'] = "max-height: {$settings->startheight}px;";
+    $vars['content'] = '';
+    foreach ($slides as $slide) {
+        $vars['content'] .= theme('art_revolution_slide', array(
+            'slide' => $slide,
+        ));
+    }
+}
+
+function art_revolution_preprocess_slide(&$vars) {
+    $slide = $vars['slide'];
+    $layers = $slide->layers;
+    if ($slide->data_link) {
+        $vars['attributes_array']['data-link'] = $slide->data_link;
+    }
+    if ($slide->data_target) {
+        $vars['attributes_array']['data-target'] = $slide->data_target;
+    }
+    if ($slide->data_slideindex) {
+        $vars['attributes_array']['data-slideindex'] = $slide->data_slideindex;
+    }
+	if ($slide->data_transition) {
+		$vars['attributes_array']['data-transition'] = $slide->data_transition;
+	}
+	if ($slide->data_masterspeed) {
+		$vars['attributes_array']['data-masterspeed'] = $slide->data_masterspeed;
+	}
+    if ($slide->data_slotamount) {
+        $vars['attributes_array']['data-slotamount'] = $slide->data_slotamount;
+    }
+    if ($slide->data_delay) {
+        $vars['attributes_array']['data-delay'] = $slide->data_delay;
+    }
+    if ($slide->data_thumb) {
+        $vars['attributes_array']['data-custom-thumb'] = $slide->data_thumb;
+    }
+	
+	if(isset($slide->custom_attribute_bg) && !empty($slide->custom_attribute_bg)) {
+		$vars['content'] = "<img {$slide->custom_attribute_bg} src=\"{$slide->background_image}\" alt=\"{$slide->title}\"/>";
+    } else {
+		$vars['content'] = "<img src=\"{$slide->background_image}\" alt=\"{$slide->title}\"/>";
+    }
+	$zindex = count($layers) + 1;
+    foreach ($layers as $layer) {
+        $vars['content'] .= theme('art_revolution_layer', array(
+            'layer' => $layer,
+            'zindex' => $zindex--,
+        ));
+    }
+}
+
+function art_revolution_preprocess_layer(&$vars) {
+    $layer = $vars['layer'];
+    //$vars['attributes_array']['class'][] = 'caption';
+    $vars['attributes_array']['class'][] = 'tp-caption';
+	if ($layer->incomingclasses) {
+		$vars['attributes_array']['class'][] = $layer->incomingclasses;
+	}
+    if ($layer->outgoingclasses) {
+        $vars['attributes_array']['class'][] = $layer->outgoingclasses;
+    }
+    if ($layer->type == 'text') {
+        $vars['attributes_array']['class'][] = $layer->text_style;
+    }
+    if (isset($layer->custom_class) && $layer->custom_class) {
+        $vars['attributes_array']['class'][] = $layer->custom_class;
+    }
+	if ($layer->left) {
+		$vars['attributes_array']['data-x'] = $layer->left;
+	}
+    if ($layer->data_hoffset) {
+        $vars['attributes_array']['data-hoffset'] = $layer->data_hoffset;
+    }
+	if ($layer->top) {
+		$vars['attributes_array']['data-y'] = $layer->top;
+	}
+    if ($layer->data_voffset) {
+        $vars['attributes_array']['data-voffset'] = $layer->data_voffset;
+    }
+	if ($layer->data_speed) {
+		$vars['attributes_array']['data-speed'] = $layer->data_speed;
+	}
+	if ($layer->data_start) {
+		$vars['attributes_array']['data-start'] = $layer->data_start;
+	}
+    if ($layer->data_endspeed) {
+        $vars['attributes_array']['data-endspeed'] = $layer->data_endspeed;
+    }
+	if ($layer->data_easing) {
+		$vars['attributes_array']['data-easing'] = $layer->data_easing;
+	}
+    if ($layer->data_endeasing) {
+        $vars['attributes_array']['data-endeasing'] = $layer->data_endeasing;
+    }
+    if ($layer->data_captionhidden) {
+        $vars['attributes_array']['data-captionhidden'] = $layer->data_captionhidden;
+    }
+    if ($layer->incomingclasses == 'customin') {
+        $vars['attributes_array']['data-customin'] = $layer->customin;
+    }
+    if ($layer->outgoingclasses == 'customout') {
+        $vars['attributes_array']['data-customout'] = $layer->customout;
+    }
+	
+	if ($layer->data_splitin) {
+		$vars['attributes_array']['data-splitin'] = $layer->data_splitin;
+	}
+	if ($layer->data_elementdelay) {
+		$vars['attributes_array']['data-elementdelay'] = $layer->data_elementdelay;
+	}
+	if ($layer->data_splitout) {
+		$vars['attributes_array']['data-splitout'] = $layer->data_splitout;
+	}
+	if ($layer->data_endelementdelay) {
+		$vars['attributes_array']['data-endelementdelay'] = $layer->data_endelementdelay;
+	}
+	if ($layer->data_end) {
+		$vars['attributes_array']['data-end'] = $layer->data_end;
+	}
+	if ($layer->data_autoplay) {
+		$vars['attributes_array']['data-autoplay'] = $layer->data_autoplay;
+	}
+	if ($layer->data_nextslideatend) {
+		$vars['attributes_array']['data-nextslideatend'] = $layer->data_nextslideatend;
+	}
+	/*if ($layer->data_thumbimage) {
+		$vars['attributes_array']['data-thumbimage'] = $layer->data_thumbimage;
+	}*/
+	if ($layer->data_forcecover) {
+		$vars['attributes_array']['data-forcecover'] = $layer->data_forcecover;
+	}
+	if ($layer->data_volume) {
+		$vars['attributes_array']['data-volume'] = $layer->data_volume;
+	}
+	if ($layer->data_forcerewind) {
+		$vars['attributes_array']['data-forcerewind'] = $layer->data_forcerewind;
+	}
+	if ($layer->data_autoplayonlyfirsttime) {
+		$vars['attributes_array']['data-autoplayonlyfirsttime'] = $layer->data_autoplayonlyfirsttime;
+	}
+	if ($layer->data_aspectratio) {
+		$vars['attributes_array']['data-aspectratio'] = $layer->data_aspectratio;
+	}
+	
+	if ($layer->custom_css) {
+        $custom_css = trim(preg_replace('/\s+/', ' ', $layer->custom_css));
+        $vars['attributes_array']['style'] = 'z-index:' . $vars['zindex'] . ';' . $custom_css;
+    } else {
+        $vars['attributes_array']['style'] = 'z-index:' . $vars['zindex'];
+    }
+
+    switch ($layer->type) {
+        case 'text':
+            if ($layer->link) {
+                $vars['content'] = l($layer->text, $layer->link, array('html' => true));
+            } else {
+                $vars['content'] = $layer->text;
+            }
+            break;
+        case 'image':
+            if ($layer->link) {
+                $vars['content'] = l("<img width='auto' height='auto' alt='' src=\"{$layer->image}\"/>", $layer->link, array('html' => true));
+            } else {
+                $vars['content'] = "<img width='auto' height='auto' alt='' src=\"{$layer->image}\"/>";
+            }
+            break;
+        case 'video':
+            if ($layer->video_type == 'vimeo') {
+                $vars['content'] = "<iframe width=\"{$layer->video_width}\" height=\"{$layer->video_height}\" class=\"no-border\" src=\"http://player.vimeo.com/video/{$layer->video}?title=0&amp;byline=0&amp;portrait=0;api=1\"></iframe>";
+            } elseif ($layer->video_type == 'youtube') {
+                $vars['content'] = "<iframe width=\"{$layer->video_width}\" height=\"{$layer->video_height}\" src=\"http://www.youtube.com/embed/{$layer->video}?hd=1&amp;wmode=opaque&amp;controls=1&amp;showinfo=0\" class=\"no-border\" allowfullscreen></iframe>";
+            } else {
+				$vars['content'] = $layer->html;
+			}
+    }
+}

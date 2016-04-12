@@ -1,0 +1,10 @@
+name = Arrowtheme Owl Carousel
+description = "Provides Owl Carousel plugin to allow the creation of view slider."
+core = 7.x
+package = Arrowtheme Module
+
+dependencies[] = views
+dependencies[] = libraries
+
+files[] = views/art_owlcarousel_plugin_style_owl_carousel.inc
+files[] = theme/art_owlcarousel.theme.inc

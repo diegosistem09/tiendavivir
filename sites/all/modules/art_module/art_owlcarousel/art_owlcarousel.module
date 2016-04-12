@@ -1,0 +1,41 @@
+<?php
+
+/**
+ * @file
+ * Main file creating responsive slideshow
+ */
+ 
+/**
+ * Implements hook_views_api
+ */
+function art_owlcarousel_views_api() {
+	return array(
+		'api' => 3,
+		'path' => drupal_get_path('module','art_owlcarousel') . '/views',
+	);
+}
+ 
+/**
+ * Implements hook_theme
+ */
+function art_owlcarousel_theme() {
+	return array(
+		'owl_carousel' => array(
+			'template' => 'template-owl-carousel',
+		),
+	);
+}
+
+/**
+ * Need to have preprocess functions here because drupal doesn't cache them 
+ * correctly in the theme.inc file.
+ * 
+ * If you would like to override the preprocess functions make sure to look at
+ * the associated function in theme.inc.
+ */
+ 
+include ('theme/art_owlcarousel.theme.inc');
+
+function template_preprocess_views_owl_carousel(&$vars) {
+  _views_slideshow_preprocess_views_owl_carousel($vars);
+}

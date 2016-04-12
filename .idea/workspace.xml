@@ -1,0 +1,654 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="23f8e5c3-e75d-4248-8886-fba24b54446c" name="Default" comment="" />
+    <ignored path="flatastic.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="DaemonCodeAnalyzer">
+    <disable_hints />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="flatastic" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="ctools.module" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sites/all/modules/ctools/ctools.module">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="598" column="42" selection-start="17764" selection-end="17764" vertical-scroll-proportion="-5.1346154" vertical-offset="9899" max-vertical-offset="18598">
+              <folding>
+                <element signature="e#7#240#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="css.inc" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sites/all/modules/ctools/includes/css.inc">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="169" column="3" selection-start="5255" selection-end="5255" vertical-scroll-proportion="-9.307693" vertical-offset="1679" max-vertical-offset="8925">
+              <folding>
+                <marker date="1445869852685" expanded="true" signature="2195:2251" placeholder="SELECT filen..." />
+                <marker date="1445869852685" expanded="true" signature="2960:3009" placeholder="SELECT * FRO..." />
+                <marker date="1445869852685" expanded="true" signature="3551:3600" placeholder="SELECT * FRO..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="settings.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$USER_HOME$/Desktop/ART/Zip/Full Demo Installation/flatastic/sites/default/settings.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="57" column="49" selection-start="1961" selection-end="1961" vertical-scroll-proportion="0.20804195" vertical-offset="0" max-vertical-offset="8891">
+              <folding>
+                <element signature="e#39#1881#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="template.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/AppData/Local/Temp/fz3temp-19/template.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="335.46155" vertical-offset="8722" max-vertical-offset="13770">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="template.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../candidate/sites/all/themes/candidate/template.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="611" column="0" selection-start="22797" selection-end="23153" vertical-scroll-proportion="-13.5" vertical-offset="10036" max-vertical-offset="10659">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="template.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sites/all/themes/flatastic/template.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="775" column="31" selection-start="35112" selection-end="35112" vertical-scroll-proportion="-9.576923" vertical-offset="12892" max-vertical-offset="13532">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindManager">
+    <FindUsagesManager>
+      <setting name="OPEN_NEW_TAB" value="false" />
+    </FindUsagesManager>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="changedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/sites/all/modules/views/includes/view.inc" />
+        <option value="Z:/revija/sites/all/themes/revija/js/custom.js" />
+        <option value="$USER_HOME$/AppData/Local/Temp/fz3temp-17/page.tpl 2.php" />
+        <option value="$PROJECT_DIR$/sites/all/themes/flatastic/templates/node/product/node--all.inc" />
+        <option value="$PROJECT_DIR$/sites/all/themes/flatastic/templates/node/product/node--view--featured-product--block.tpl.php" />
+        <option value="$USER_HOME$/AppData/Local/Temp/fz3temp-17/template.php" />
+        <option value="$USER_HOME$/AppData/Local/Temp/fz3temp-17/page.tpl.php" />
+        <option value="$USER_HOME$/AppData/Local/Temp/fz3temp-17/page--panel.tpl.php" />
+        <option value="$PROJECT_DIR$/sites/all/themes/flatastic/templates/node/product/node--view--product-block--block-bestsellers.tpl.php" />
+        <option value="$PROJECT_DIR$/sites/all/themes/flatastic/templates/node/product/node--view--product-block--block-new-collection.tpl.php" />
+        <option value="$PROJECT_DIR$/sites/all/themes/flatastic/templates/node/product/node--view--product-block--related-product.tpl.php" />
+        <option value="$PROJECT_DIR$/sites/all/themes/flatastic/templates/node/product/node--view--product-specials--block.tpl.php" />
+        <option value="$PROJECT_DIR$/sites/all/themes/flatastic/templates/node/product/node_all.inc" />
+        <option value="$PROJECT_DIR$/sites/all/themes/flatastic/theme-settings.php" />
+        <option value="$PROJECT_DIR$/sites/all/themes/flatastic/templates/html.tpl.php" />
+        <option value="$PROJECT_DIR$/sites/all/themes/flatastic/templates/includes/header_1.inc" />
+        <option value="$PROJECT_DIR$/sites/all/themes/flatastic/templates/includes/header_2.inc" />
+        <option value="$PROJECT_DIR$/../candidate/sites/all/themes/candidate/css/custom.css" />
+        <option value="$PROJECT_DIR$/sites/all/themes/flatastic/css/custom.css" />
+        <option value="$PROJECT_DIR$/sites/all/themes/flatastic/templates/node/about/node--about.tpl.php" />
+        <option value="$PROJECT_DIR$/sites/all/themes/flatastic/templates/node/clients/node--clients.tpl.php" />
+        <option value="$PROJECT_DIR$/sites/all/themes/flatastic/templates/node/portfolio/node--portfolio.tpl.php" />
+        <option value="$PROJECT_DIR$/sites/all/themes/flatastic/templates/node/portfolio/node--view--art-portfolio--page-4.tpl.php" />
+        <option value="$PROJECT_DIR$/sites/all/themes/flatastic/templates/node/portfolio/node--view--interior-portfolio--block.tpl.php" />
+        <option value="$PROJECT_DIR$/sites/all/themes/flatastic/templates/node/portfolio/node--view--portfolio-one-page--block.tpl.php" />
+        <option value="$PROJECT_DIR$/sites/all/themes/flatastic/templates/node/product/node--view--interior-product--block.tpl.php" />
+        <option value="$PROJECT_DIR$/sites/all/themes/flatastic/templates/node/product/node--view--product-block--block-all-carousel.tpl.php" />
+        <option value="$PROJECT_DIR$/sites/all/themes/flatastic/templates/node/product/node--view--product-block--block-featured.tpl.php" />
+        <option value="$PROJECT_DIR$/sites/all/themes/flatastic/templates/node/product/node--view--product-block--related-product-3col.tpl.php" />
+        <option value="$PROJECT_DIR$/sites/all/themes/flatastic/templates/node/product/node--view--product-interior-style-2--block.tpl.php" />
+        <option value="$PROJECT_DIR$/sites/all/themes/flatastic/templates/node/product/node--view--product-list.tpl.php" />
+        <option value="$PROJECT_DIR$/sites/all/themes/flatastic/templates/node/team/node--team.tpl.php" />
+        <option value="$PROJECT_DIR$/sites/all/themes/flatastic/templates/view/products/views-view-field--list-product-category.tpl.php" />
+        <option value="$PROJECT_DIR$/sites/all/themes/flatastic/templates/view/services/views-view-fields--service--main-sevices.tpl.php" />
+        <option value="$PROJECT_DIR$/sites/all/themes/flatastic/templates/node/product/node--view--product-block--block-all.tpl.php" />
+        <option value="$PROJECT_DIR$/sites/all/themes/flatastic/templates/node/product/node--product-display.tpl.php" />
+        <option value="$USER_HOME$/AppData/Local/Temp/fz3temp-19/ctools.module" />
+        <option value="$PROJECT_DIR$/sites/all/modules/ctools/ctools.module" />
+        <option value="$PROJECT_DIR$/sites/all/themes/flatastic/template.php" />
+        <option value="$PROJECT_DIR$/sites/all/modules/ctools/includes/css.inc" />
+        <option value="$USER_HOME$/Desktop/ART/Zip/Full Demo Installation/flatastic/sites/default/settings.php" />
+      </list>
+    </option>
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1382" />
+    <option name="height" value="744" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectReloadState">
+    <option name="STATE" value="0" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1" splitterProportion="0.5">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="flatastic" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="flatastic" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="flatastic-profile" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="flatastic" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="flatastic-profile" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sites" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="flatastic" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="flatastic-profile" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sites" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="all" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="flatastic" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="flatastic-profile" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sites" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="all" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="themes" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="flatastic" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="flatastic-profile" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sites" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="all" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="themes" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="flatastic" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="FullScreen" value="false" />
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+      <TestRunner />
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpLocalRunConfigurationType" factoryName="PHP Console">
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpUnitRemoteRunConfigurationType" factoryName="PHPUnit on Server">
+      <method />
+    </configuration>
+    <list size="0" />
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="23f8e5c3-e75d-4248-8886-fba24b54446c" name="Default" comment="" />
+      <created>1445430845314</created>
+      <updated>1445430845314</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="0" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32967034" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2489019" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+    </layout>
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="myTodoPanelSettings">
+      <TodoPanelSettings />
+    </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/sites/all/themes/flatastic/templates/region--language.tpl.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="590" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/themes/flatastic/templates/page--panel.tpl.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3842" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/themes/flatastic/templates/page--blog.tpl.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3298" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/themes/flatastic/templates/page.tpl.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="54.923077" vertical-offset="1428" max-vertical-offset="3706" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/themes/flatastic/templates/page--product-display.tpl.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3434" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/themes/flatastic/templates/html.tpl.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="39" selection-start="111" selection-end="111" vertical-scroll-proportion="0.123411976" vertical-offset="0" max-vertical-offset="5933" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/themes/flatastic/templates/includes/header_2.inc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="109" column="46" selection-start="7510" selection-end="7510" vertical-scroll-proportion="0.66061705" vertical-offset="1489" max-vertical-offset="2142" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../candidate/sites/all/themes/candidate/css/custom.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="675" column="0" selection-start="21890" selection-end="22457" vertical-scroll-proportion="0.0" vertical-offset="11285" max-vertical-offset="18938" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/themes/flatastic/css/custom.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2048" column="33" selection-start="48293" selection-end="48293" vertical-scroll-proportion="0.0" vertical-offset="34540" max-vertical-offset="43724" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/default/settings.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="94.38461" vertical-offset="2454" max-vertical-offset="9129">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/themes/flatastic/templates/node/about/node--about.tpl.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="18" selection-start="24" selection-end="24" vertical-scroll-proportion="-0.65384614" vertical-offset="0" max-vertical-offset="340" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/themes/flatastic/templates/node/clients/node--clients.tpl.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="0" selection-start="24" selection-end="24" vertical-scroll-proportion="-1.3076923" vertical-offset="0" max-vertical-offset="442" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/themes/flatastic/templates/node/portfolio/node--portfolio.tpl.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="18" selection-start="338" selection-end="338" vertical-scroll-proportion="-4.423077" vertical-offset="106" max-vertical-offset="4165" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/themes/flatastic/templates/node/portfolio/node--view--art-portfolio--page-4.tpl.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="6" selection-start="7" selection-end="7" vertical-scroll-proportion="-0.65384614" vertical-offset="0" max-vertical-offset="1326" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/themes/flatastic/templates/node/portfolio/node--view--interior-portfolio--block.tpl.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="10" selection-start="16" selection-end="16" vertical-scroll-proportion="-0.65384614" vertical-offset="0" max-vertical-offset="816" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/themes/flatastic/templates/node/product/node--view--product-block--related-product-3col.tpl.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="18" selection-start="228" selection-end="228" vertical-scroll-proportion="0.359375" vertical-offset="38" max-vertical-offset="1360" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/themes/flatastic/templates/node/product/node--view--product-interior-style-2--block.tpl.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="18" selection-start="24" selection-end="24" vertical-scroll-proportion="0.053125" vertical-offset="0" max-vertical-offset="850" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/themes/flatastic/templates/node/product/node--view--product-list.tpl.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="159" column="52" selection-start="7677" selection-end="7677" vertical-scroll-proportion="0.33125" vertical-offset="2597" max-vertical-offset="4607" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/themes/flatastic/templates/view/products/views-view-field--list-product-category.tpl.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="23" selection-start="547" selection-end="547" vertical-scroll-proportion="-4.423077" vertical-offset="140" max-vertical-offset="544" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/themes/flatastic/templates/view/services/views-view-fields--service--main-sevices.tpl.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="2" selection-start="1117" selection-end="1117" vertical-scroll-proportion="-2.3461537" vertical-offset="313" max-vertical-offset="1003" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/themes/flatastic/templates/node/team/node--team.tpl.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="0" selection-start="183" selection-end="183" vertical-scroll-proportion="-4.576923" vertical-offset="0" max-vertical-offset="357" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/themes/flatastic/templates/node/portfolio/node--view--portfolio-one-page--block.tpl.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="11" selection-start="17" selection-end="17" vertical-scroll-proportion="-0.65384614" vertical-offset="0" max-vertical-offset="816" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../jollyanycommerce/sites/all/modules/ctools/ctools.module">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="41" selection-start="906" selection-end="906" vertical-scroll-proportion="-26.937063" vertical-offset="15697" max-vertical-offset="16269" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/themes/flatastic/templates/node/product/node--view--product-block--block-bestsellers.tpl.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="1" selection-start="386" selection-end="386" vertical-scroll-proportion="0.0" vertical-offset="204" max-vertical-offset="1360" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/themes/flatastic/templates/node/product/node--view--product-block--block-featured.tpl.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="112" column="64" selection-start="5742" selection-end="5742" vertical-scroll-proportion="-2.4615386" vertical-offset="1840" max-vertical-offset="3706" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/themes/flatastic/templates/node/product/node--view--product-block--block-new-collection.tpl.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="814" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1377" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/themes/flatastic/templates/node/product/node--view--product-block--related-product.tpl.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="20" selection-start="219" selection-end="219" vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="1343" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/themes/flatastic/templates/node/product/node--product-display.tpl.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="319" column="27" selection-start="18976" selection-end="18976" vertical-scroll-proportion="9.842105" vertical-offset="0" max-vertical-offset="7242" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/themes/flatastic/templates/node/product/node--view--featured-product--block.tpl.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="36" selection-start="36" selection-end="36" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="901" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/themes/flatastic/templates/node/product/node--view--interior-product--block.tpl.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="18" selection-start="255" selection-end="255" vertical-scroll-proportion="-0.68356645" vertical-offset="561" max-vertical-offset="1394" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/themes/flatastic/templates/node/product/node--view--product-block--block-all.tpl.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="34" column="46" selection-start="1151" selection-end="1154" vertical-scroll-proportion="0.38636363" vertical-offset="357" max-vertical-offset="3570" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/themes/flatastic/templates/node/product/node--view--product-block--block-all-carousel.tpl.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="18" selection-start="228" selection-end="228" vertical-scroll-proportion="0.18531469" vertical-offset="47" max-vertical-offset="1275" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/themes/flatastic/templates/includes/header_1.inc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="100" column="36" selection-start="6285" selection-end="6285" vertical-scroll-proportion="-0.9020979" vertical-offset="2216" max-vertical-offset="2788">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/themes/flatastic/templates/includes/footer_1.inc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="782">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Temp/fz3temp-19/ctools.api.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-6.788034" vertical-offset="3971" max-vertical-offset="4556">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/modules/ctools/includes/css-cache.inc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="12" selection-start="459" selection-end="459" vertical-scroll-proportion="0.21367522" vertical-offset="96" max-vertical-offset="935">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Temp/fz3temp-19/ctools.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="611">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Temp/fz3temp-19/ctools.module">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="996" column="0" selection-start="30005" selection-end="30005" vertical-scroll-proportion="26.42133" vertical-offset="1700" max-vertical-offset="18479">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/themes/flatastic/templates/maintenance-page.tpl.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-1.437063" vertical-offset="822" max-vertical-offset="1394">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../flatastic2/sites/all/modules/ctools/ctools.module">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="800" column="28" selection-start="0" selection-end="30798" vertical-scroll-proportion="-7.6153846" vertical-offset="13283" max-vertical-offset="17323">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../flatastic/sites/all/modules/ctools/ctools.module">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="41" selection-start="752" selection-end="752" vertical-scroll-proportion="-20.97028" vertical-offset="12250" max-vertical-offset="18479">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../lawswift-profile/sites/default/files/.htaccess">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="611">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../lawswift-profile/sites/all/themes/lawswift/theme/alter.inc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="28" selection-start="440" selection-end="440" vertical-scroll-proportion="-7.8461537" vertical-offset="0" max-vertical-offset="4454">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../lawswift-profile/sites/all/modules/custom/brt_module/brt_module.module">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="277" column="20" selection-start="12736" selection-end="12736" vertical-scroll-proportion="-0.7237762" vertical-offset="5123" max-vertical-offset="5695">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../lawswift-profile/sites/example.sites.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1037">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Temp/fz3temp-19/template.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="335.46155" vertical-offset="8722" max-vertical-offset="13770">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../candidate/sites/all/themes/candidate/template.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="611" column="0" selection-start="22797" selection-end="23153" vertical-scroll-proportion="-13.5" vertical-offset="10036" max-vertical-offset="10659">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/themes/flatastic/template.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="775" column="31" selection-start="35112" selection-end="35112" vertical-scroll-proportion="-9.576923" vertical-offset="12892" max-vertical-offset="13532">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/modules/ctools/ctools.module">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="598" column="42" selection-start="17764" selection-end="17764" vertical-scroll-proportion="-5.1346154" vertical-offset="9899" max-vertical-offset="18598">
+          <folding>
+            <element signature="e#7#240#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sites/all/modules/ctools/includes/css.inc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="169" column="3" selection-start="5255" selection-end="5255" vertical-scroll-proportion="-9.307693" vertical-offset="1679" max-vertical-offset="8925">
+          <folding>
+            <marker date="1445869852685" expanded="true" signature="2195:2251" placeholder="SELECT filen..." />
+            <marker date="1445869852685" expanded="true" signature="2960:3009" placeholder="SELECT * FRO..." />
+            <marker date="1445869852685" expanded="true" signature="3551:3600" placeholder="SELECT * FRO..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Desktop/ART/Zip/Full Demo Installation/flatastic/sites/default/settings.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="57" column="49" selection-start="1961" selection-end="1961" vertical-scroll-proportion="0.20804195" vertical-offset="0" max-vertical-offset="8891">
+          <folding>
+            <element signature="e#39#1881#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
+

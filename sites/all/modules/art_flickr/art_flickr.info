@@ -1,0 +1,6 @@
+name = Art Flickr
+description = Custom block type
+dependencies[] = block
+core = 7.x
+version = 7.x
+package = Arrowtheme Module

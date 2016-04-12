@@ -1,0 +1,125 @@
+<?php
+
+function art_flickr_block_info(){
+    $blocks['flickr'] = array(
+        'info' => 'ART Flickr',
+
+    );
+    $blocks['wishlish'] = array(
+        'info' => 'ART Wishlist',
+
+    );
+    return $blocks;
+
+}
+function art_flickr_block_configure($delta = ''){
+    $form = array();
+    switch($delta){
+        case 'flickr':
+            $form['flickr_num'] = array(
+                '#title' => 'Number Image',
+                '#type'  => 'textfield',
+                '#default_value' => variable_get('flickr_num',''),
+                '#description' => 'Customizable number of pictures displayed'
+            );
+
+
+            $form['flickr_id'] = array(
+                '#title' => 'Id of Flickr',
+                '#type'  => 'textfield',
+                '#default_value' => variable_get('flickr_id','')
+            );
+
+            break;
+        case 'wishlish':
+            $form['wishlist_num'] = array(
+                '#title' => 'Number Image',
+                '#type'  => 'textfield',
+                '#default_value' => variable_get('wishlist_num',''),
+                '#description' => 'Customizable number of pictures displayed (The default is 2 photo)'
+            );
+            $form['wishlist_title'] = array(
+                '#title' => 'input title for Block wishlist',
+                '#type'  => 'textfield',
+                '#default_value' => variable_get('wishlist_title',''),
+                '#description' => 'Customizable Title'
+            );
+    }
+    return $form;
+}
+function art_flickr_block_save($delta = '', $edit = array()){
+
+    switch($delta){
+
+        case 'flickr':
+            variable_set('flickr_num',$edit['flickr_num']);
+            variable_set('flickr_id',$edit['flickr_id']);
+            break;
+        case 'wishlish':
+            variable_set('wishlist_num',$edit['wishlist_num']);
+            variable_set('wishlist_title',$edit['wishlist_title']);
+            break;
+    }
+}
+function art_flickr_block_view($delta = ''){
+   switch($delta){
+       case 'flickr':
+           drupal_add_js(array('flickr' => array('flickrID' => variable_get('flickr_id'),'flickrNum' => variable_get('flickr_num'))),'setting');
+           drupal_add_js(drupal_get_path('module', 'art_flickr') . '/js/jquery.flickrfeed.min.js');
+           drupal_add_js(drupal_get_path('module', 'art_flickr') . '/js/flickr.custom.js');
+           $block['subject'] = '';
+           $block['content'] = '<ul class = "flick-content"></ul>';
+           break;
+       case 'wishlish' :
+        $block['subject'] = '';
+        $block['content'] = page_wishlist();
+           break;
+   }
+    return $block;
+}
+function page_wishlist(){
+    $w_title = variable_get('wishlist_title','');
+    $n_image =  variable_get('wishlist_num','');
+    if(!empty($n_image) && $n_image > 1){
+        $num = $n_image;
+    }else{
+        $num = 2;
+    }
+
+    $count_wishlist =  flag_get_user_flags('node');
+    if(!empty($count_wishlist)){
+        $x = $count_wishlist['shop'];
+        $count_x = count($x);
+        if($count_x > 1){
+            $k = array_rand($x,$num);
+
+            $data = node_load_multiple($k);
+        }else{
+            $k = '';
+            foreach($x as $key => $value){
+            $k[] = $value->entity_id;
+        }
+            $data = node_load_multiple($k);
+        }
+        $variables = array(
+            'wishlist' => $data,
+            'wishlist_title' => $w_title,
+        );
+        $output = theme('custom_template',$variables);
+        return $output;
+    }else{
+        return theme('custom_template');
+    }
+
+}
+function art_flickr_theme($existing, $type, $theme, $path){
+    $theme_path = drupal_get_path('module','art_flickr');
+
+    return array(
+        'custom_template' => array(
+            'template' => 'wishlist',
+            'path' => $theme_path.'/template',
+
+        )
+    );
+}
