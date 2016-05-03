@@ -504,7 +504,7 @@ td input.delete-line-item{
     border-radius: 4px;
 }
 td input.delete-line-item:hover{
-    background-color: #323a45 ;
+    background-color: #0193d7 ;
     color: #fff;
 }
 input[title$="uantity"]{
@@ -963,7 +963,7 @@ color: #292f38;
     background-color: #e74c3c;
 }
 .contact-wrapper .align-center a:hover{
-    background-color: #323a45;
+    background-color: #0193d7;
     color: #fff;
 }
 /*button shopping cart*/
@@ -1729,7 +1729,7 @@ div.c-testi ,div.c-testi  h5.color_dark{
 	display: none;
 }
 .filter_sidebar h3 {
-  background: #323a45 none repeat scroll 0 0;
+  background: #0193d7 none repeat scroll 0 0;
   padding: 15px 20px 14px;
   color: #FFF;
 }
@@ -1832,7 +1832,7 @@ h3.c-light{
     color: #fff;
     font-size: 1.4em;
     padding: 15px 85px 14px 20px;
-    background-color: #323a45;
+    background-color: #0193d7;
     border-radius: 4px 4px 0 0;
 }
 #commerce-checkout-form-checkout .commerce_coupon input.form-submit.ajax-processed{
@@ -2042,11 +2042,6 @@ h1.about_style{color: #252525;font-size: 40px;font-style: italic;}
 .page-node .links .statistics_counter {display: none;}
 .flickr_badge_image img {width: 100%;}
 /*UPDATE FLATASTIC*/
-.description .description-selected .field.field-name-field-hexadecimal.field-type-text.field-label-hidden{
-    border: 1px solid #e74c3c;
-}
-#block-views-product-specials-block input.form-submit{float: right}
-.commerce-product-field-commerce-price,.commerce-product-field-regular-price{color: #e74c3c}
 table.checkout-review tbody tr.pane-data:nth-child(4) .form-item label,
 table.checkout-review tbody tr.pane-data:nth-child(6) .field-item > div >div:before,
 .locality-block >span:before, span.country:before,
@@ -2262,7 +2257,7 @@ span.country:before{content: "Country :";}
         width: 100%;
     }
     .page-one-page #menu_button{
-        background-color: #323a45;
+        background-color: #0193d7;
     }
     .page-one-page #menu_button.active{
         background-color: #e74c3c;
