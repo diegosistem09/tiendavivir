@@ -3,7 +3,10 @@
 	Rtl styles
 
 -------------------------------------*/
-
+.tb-megamenu .nav > .dropdown > .dropdown-toggle .caret{
+    display: none;
+}
+.p_right{left: 0;right:initial;}
 body,
 .owl-carousel .owl-wrapper-outer .owl-item{
     direction: rtl;
@@ -2305,5 +2308,14 @@ div.messages{padding: 10px 50px 10px 10px}
     float: right;
     margin-left: 15px;
     margin-right: 0;
+}
+
+
+@media (max-width: 992px) {
+    .tb-megamenu-nav .dropdown:before{
+        left: 10px;
+        right: initial;
+    }
+
 }
 

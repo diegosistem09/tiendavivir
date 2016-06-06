@@ -1,32 +1,4 @@
-<?php
-global $base_url;
-global $theme_root;
-$curr_uri = request_uri();
-
-if (!empty($node->field_product['und'][0])) {
-    $product = commerce_product_load($node->field_product['und'][0]['product_id']);
-    $id = $product->product_id;
-}
-
-$single_image = ' ';
-if (!empty($node->field_single_image['und'])) {
-    $single_image = image_style_url("product_block_242x242", $node->field_single_image['und'][0]['uri']);
-}
-$str_att = '';
-if (isset($node->field_product_attributes)):
-    if(isset($node->field_product_attributes['und'])){
-        foreach ($node->field_product_attributes['und'] as $att) {
-            $str_att .= ' ' . strtolower($att['taxonomy_term']->name);
-        }
-    }
-endif;
-
-$multiple_image = array();
-if (!empty($node->field_image['und'])) {
-    $multiple_image = $node->field_image['und'];
-}
-
-?>
+<?php include_once 'node_all.inc';?>
 <figure class="r_corners photoframe shadow relative d_inline_b d_md_block d_xs_inline_b tr_all_hover">
     <!--product preview-->
     <a href="<?php echo $node_url ?>" class="d_block relative pp_wrap">

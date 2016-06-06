@@ -20,12 +20,22 @@ jQuery(document).ready(function() {
 	
 	jQuery('.pager-load-more .next a').html('Load More');
 
-
-
-  /*  jQuery('.qv_carousel_single a.p-img img').click(function(){
-        var src = jQuery(this).attr('src');
-        jQuery('.qv_preview img').attr('src',src);
-    });*/
+    //Menu Carousel
+    jQuery('.menu-carousel').owlCarousel({
+        loop:true,
+        margin:10,
+        navigation:true,
+        navigationText:['<i class="fa fa-angle-left"></i>','<i class="fa fa-angle-right"></i>'],
+        autoPlay:false,
+        singleItem:true,
+        autoHeight : true
+    });
+   //Responsive :
+    jQuery('.dropdown-toggle').click(function(){
+        jQuery(this).siblings('.tb-megamenu-submenu').toggleClass('m-open');
+        jQuery(this).parent().toggleClass('m-icon');
+        return false;
+    })
 
     
 });

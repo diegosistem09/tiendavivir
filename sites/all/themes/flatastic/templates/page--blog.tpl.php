@@ -132,9 +132,12 @@ if (theme_get_setting('layout_option') == 'boxed') {
                             <?php print render($tabs); ?>
                         </div>
                     <?php endif; ?>
+                    <?php print render($title_prefix); ?>
+
                     <?php if($page['content']):?>
 						<?php print render($page['content']);?>
 					<?php endif;?>
+                    <?php print render($title_suffix); ?>
                 </section>
                 <!--right column-->
                 <aside class="col-lg-3 col-md-3 col-sm-3">

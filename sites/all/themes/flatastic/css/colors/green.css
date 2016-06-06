@@ -1,4 +1,5 @@
 /* STYLE COLOR YELLOW */
+
 mark{
 	background: #a9c10b;
 }
@@ -269,7 +270,42 @@ ul.header_5 > li > a:hover{border-bottom: 2px solid #a9c10b;}
 }
 .sub_menu li a.active-trail{ color: #a9c10b;}
 #maintenance .title span {color: #a9c10b;}
+/*MEGA MENU*/
+.tb-megamenu .nav > li > a:focus, .tb-megamenu .nav > li > a:hover{
+    background: #a9c10b;
+    color: #fff;
+}
+.tb-megamenu .nav li.dropdown.open > .dropdown-toggle{
+    background: #a9c10b;
+    color: #fff;
+}
+.tb-megamenu .mega-caption{float: right;margin-top: 0;}
+.tb-megamenu .dropdown-menu li > a{
+    font-weight: 300 !important;
+    color: #292f38;
+}
+.tb-megamenu .dropdown-menu .active > a, .tb-megamenu .dropdown-menu .active > a:hover{background: transparent;color: #a9c10b !important;}
+.tb-megamenu .dropdown-menu li.menu-title a{
+    font-weight: bold !important;
+    text-transform: uppercase;
+}
+.tb-megamenu .dropdown-menu li > a:hover, .tb-megamenu .dropdown-menu li > a:focus, .tb-megamenu .dropdown-submenu:hover > a{
+    color: #a9c10b;
+}
+.tb-megamenu .nav li.dropdown.active > .dropdown-toggle, .tb-megamenu .nav li.dropdown.open.active > .dropdown-toggle, .tb-megamenu .nav > li.dropdown.open.active > a:hover{background-color: #a9c10b;}
+.tb-megamenu-nav.header_5 > li > a{background: none !important;color: #252525;border-radius: 0;}
+.tb-megamenu-nav.header_5 > li > a:hover,.tb-megamenu-nav.header_5 > li:hover > a{color: #a9c10b !important;}
+.tb-megamenu-nav.header_5 > li.active-trail > a{color: #a9c10b !important;border-radius: 2px solid #a9c10b;}
+@media (max-width: 992px){
+    .tb-megamenu-item.active-trail > a{color: #a9c10b}
 
+    .tb-megamenu .nav li.dropdown.active > .dropdown-toggle, .tb-megamenu .nav li.dropdown.open.active > .dropdown-toggle, .tb-megamenu .nav > li.dropdown.open.active > a:hover{
+        background-color: transparent !important;
+        color: #a9c10b;
+    }
+
+    #nav .dropdown-menu li.hover > a, #nav .dropdown-menu li:hover > a, #nav .dropdown-menu li.active > a{background: #fff;color: #a9c10b !important;}
+}
 @media only screen and (max-width: 767px){
     .page-one-page #menu_button.active{
         background-color: #a9c10b;

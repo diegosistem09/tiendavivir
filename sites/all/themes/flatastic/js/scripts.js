@@ -256,37 +256,6 @@
 
 		});
 	})();
-
-	// jackbox
-
-
-	/*(function(){
-
-		if($(".jackbox[data-group]").length){
-			jQuery(".jackbox[data-group]").jackBox("init",{
-				    showInfoByDefault: false,
-				    preloadGraphics: true, 
-				    fullscreenScalesContent: true,
-				    autoPlayVideo: true,
-				    flashVideoFirst: false,
-				    defaultVideoWidth: 960,
-				    defaultVideoHeight: 540,
-				    baseName: "jackbox",
-				    className: ".jackbox",
-				    useThumbs: true,
-				    thumbsStartHidden: false,
-				    thumbnailWidth: 75,
-				    thumbnailHeight: 50,
-				    useThumbTooltips: true,
-				    showPageScrollbar: false,
-				    useKeyboardControls: true 
-			});
-		}
-
-	})();*/
-
-
-
 	// remove products from shopping cart
 	
 	$('[role="banner"]').on('click','.close_product',function(){

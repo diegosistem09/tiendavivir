@@ -157,6 +157,7 @@ if (count($getPageStyle1) > 0) {
                         case 'header_2': ?>
                             // Setting Header 2
                             $('.main_menu').addClass('type_2');
+                            $('.tb-megamenu-nav.nav').addClass('type_2');
                             $('.main_menu .f_xs_none').addClass('m_left_10 m_xs_left_0');
                             $('.main_menu .color_light').removeClass('color_light').addClass('color_dark r_corners');
                             hSelect.prevAll(".select_title").text('Header 2');
@@ -170,6 +171,7 @@ if (count($getPageStyle1) > 0) {
                         case 'header_4': ?>
                             // Setting Header 4
                             $('.main_menu').addClass('type_3');
+                            $('.tb-megamenu-nav.nav').addClass('type_3');
                             $('.main_menu li.m_xs_bottom_5').addClass('m_left_40 m_sm_left_10 m_md_left_25 m_xs_left_0');
                             $('.main_menu .color_light').removeClass('color_light').addClass('color_dark r_corners');
                             hSelect.prevAll(".select_title").text('Header 4');
@@ -178,6 +180,7 @@ if (count($getPageStyle1) > 0) {
                         case 'header_5': ?>
                             // Setting Header 5
                             $('.main_menu').addClass('type_2 header_5');
+                            $('.tb-megamenu-nav.nav').addClass('type_2 header_5');
                             hSelect.prevAll(".select_title").text('Header 5');
                     <?php
                     default:
@@ -322,7 +325,7 @@ if (count($getPageStyle1) > 0) {
 					}
 					
 					// twitter
-					(function(){
+					/*(function(){
 						$('.twitterfeed').tweet({
 							username: '<?php echo theme_get_setting('twitter_username'); ?>',
 							modpath : '<?php echo $base_url; ?>/twitter/',
@@ -330,7 +333,7 @@ if (count($getPageStyle1) > 0) {
 							loading_text: 'loading twitter feed...',
 							template: '<a class="color_dark" href="{user_url}">@{screen_name}</a> {text}<div>{time}</div><ul class="horizontal_list clearfix tw_buttons"><li>{reply_action}</li><li class="m_left_5">{retweet_action}</li><li class="m_left_5">{favorite_action}</li></ul>'
 						});
-					})();
+					})();*/
 
                 })
             })(jQuery);

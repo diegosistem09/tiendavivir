@@ -52,7 +52,7 @@ $data = arg(0);
                                 <span class="centered_db r_corners"></span>
                             </button>
                             <!--main menu-->
-                            <nav role="navigation" class="f_left f_xs_none d_xs_none m_left_145 m_md_right_30 m_sm_right_0">
+                            <nav role="navigation" class="f_left f_xs_none d_xs_none m_left_80 m_md_right_30 m_sm_right_0">
                                 <?php print render($page['menu']); ?>
                             </nav>
 

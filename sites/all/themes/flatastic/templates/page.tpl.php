@@ -132,10 +132,12 @@ if (count($getPageStyle1)) {
 						<?php if ($page['before_content']): ?>
 							<?php print render($page['before_content']); ?>
 						<?php endif; ?>
-						
-						<?php if ($page['content']): ?>
-							<?php print render($page['content']); ?>
-						<?php endif; ?>
+
+                        <?php print render($title_prefix); ?>
+                        <?php if ($page['content']): ?>
+                            <?php print render($page['content']); ?>
+                        <?php endif; ?>
+                        <?php print render($title_suffix); ?>
 						
                     </section>
                     <aside class="col-lg-3 col-md-3 col-sm-3">
@@ -156,10 +158,11 @@ if (count($getPageStyle1)) {
 				<?php if ($page['before_content']): ?>
 					<?php print render($page['before_content']); ?>
 				<?php endif; ?>
-				
+                <?php print render($title_prefix); ?>
 				<?php if ($page['content']): ?>
 					<?php print render($page['content']); ?>
 				<?php endif; ?>
+                <?php print render($title_suffix); ?>
 				
 				<?php if ($page['after_content']): ?>
 					<?php print render($page['after_content']); ?>

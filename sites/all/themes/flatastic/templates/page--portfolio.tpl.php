@@ -122,10 +122,12 @@ if (count($getPageStyle1)) {
     <?php endif; ?>
 
     <!--content-->
+    <?php print render($title_prefix); ?>
+
     <?php if($page['content']):?>
         <?php print render($page['content']);?>
     <?php endif;?>
-
+    <?php print render($title_suffix); ?>
 
 <?php
 if (isset($_GET['footer'])) {

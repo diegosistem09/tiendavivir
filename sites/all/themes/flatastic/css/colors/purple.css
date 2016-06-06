@@ -267,7 +267,43 @@ ul.header_5 > li > a:hover{border-bottom: 2px solid #7c4dff;}
 }
 .sub_menu li a.active-trail{ color: #7c4dff;}
 #maintenance .title span {color: #7c4dff;}
+/*MEGA MENU*/
+.tb-megamenu .nav > li > a:focus, .tb-megamenu .nav > li > a:hover{
+    background: #7c4dff;
+    color: #fff;
+}
+.tb-megamenu .nav li.dropdown.open > .dropdown-toggle{
+    background: #7c4dff;
+    color: #fff;
+}
+.tb-megamenu .mega-caption{float: right;margin-top: 0;}
 
+.tb-megamenu .dropdown-menu li > a{
+    font-weight: 300 !important;
+    color: #292f38;
+}
+.tb-megamenu .dropdown-menu .active > a, .tb-megamenu .dropdown-menu .active > a:hover{background: transparent;color: #7c4dff !important;}
+.tb-megamenu .dropdown-menu li.menu-title a{
+    font-weight: bold !important;
+    text-transform: uppercase;
+}
+.tb-megamenu .dropdown-menu li > a:hover, .tb-megamenu .dropdown-menu li > a:focus, .tb-megamenu .dropdown-submenu:hover > a{
+    color: #7c4dff;
+}
+.tb-megamenu .nav li.dropdown.active > .dropdown-toggle, .tb-megamenu .nav li.dropdown.open.active > .dropdown-toggle, .tb-megamenu .nav > li.dropdown.open.active > a:hover{background-color: #7c4dff;}
+.tb-megamenu-nav.header_5 > li > a{background: none !important;color: #252525;border-radius: 0;}
+.tb-megamenu-nav.header_5 > li > a:hover,.tb-megamenu-nav.header_5 > li:hover > a{color: #7c4dff !important;}
+.tb-megamenu-nav.header_5 > li.active-trail > a{color: #7c4dff !important;border-radius: 2px solid #7c4dff;}
+@media (max-width: 992px){
+    .tb-megamenu-item.active-trail > a{color: #7c4dff}
+
+    .tb-megamenu .nav li.dropdown.active > .dropdown-toggle, .tb-megamenu .nav li.dropdown.open.active > .dropdown-toggle, .tb-megamenu .nav > li.dropdown.open.active > a:hover{
+        background-color: transparent !important;
+        color: #7c4dff;
+    }
+
+    #nav .dropdown-menu li.hover > a, #nav .dropdown-menu li:hover > a, #nav .dropdown-menu li.active > a{background: #fff;color: #7c4dff !important;}
+}
 @media only screen and (max-width: 767px){
     .page-one-page #menu_button.active{
         background-color: #7c4dff;

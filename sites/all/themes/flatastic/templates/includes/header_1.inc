@@ -29,7 +29,7 @@ $data = arg(0);
         <div class="clearfix row">
             <div class="col-lg-6 col-md-6 col-sm-4 t_xs_align_c">
                 <?php if ($logo): ?>
-					<?php 
+					<?php
 						if(theme_get_setting('use_logo_default') == 0) {
 							if(strpos($curr_uri, 'index-construction') || theme_get_setting('demo') == 'construction') { $logo = file_create_url(theme_get_setting('logo_construction')); }
 							elseif(strpos($curr_uri, 'index-corporate') || theme_get_setting('demo') == 'corporate') { $logo = file_create_url(theme_get_setting('logo_corporate')); }
@@ -94,18 +94,28 @@ $data = arg(0);
                     </li>
                     <!--shopping cart-->
                     <?php if($page['cart']): ?>
-                        <?php 
+                        <?php
 						$order = commerce_cart_order_load($user->uid);
 						$quantity = 0;
-						$total_price = '$0';
+                        $enabled_curr = commerce_currencies(TRUE);
+                        $current_curr = $enabled_curr[commerce_multicurrency_get_user_currency_code()];
+                        $curr_symbol = $current_curr['symbol'];
+						$total_price = $curr_symbol.'&nbsp;0.00';
 						if ($order) {
                             $wrapper = entity_metadata_wrapper('commerce_order', $order);
                             $line_items = $wrapper->commerce_line_items;
                             $quantity = commerce_line_items_quantity($line_items, commerce_product_line_item_types());
                             $total = commerce_line_items_total($line_items);
                             $currency = commerce_currency_load($total['currency_code']);
-                            $total_price = commerce_currency_format($total['amount'],$total['currency_code']);
+                            if($total['amount'] > 0){
+                                $total_price = commerce_currency_format($total['amount'],$total['currency_code']);
+                            }else{
+                                $total_price = $curr_symbol.'&nbsp;0.00';
+                            }
+
+
                         }?>
+
                         <li class="m_left_5 relative container3d" id="shopping_button">
                             <a role="button" href="#" class="button_type_3 color_light bg_scheme_color d_block r_corners tr_delay_hover box_s_none">
 								<span class="d_inline_middle shop_icon m_mxs_right_0">
