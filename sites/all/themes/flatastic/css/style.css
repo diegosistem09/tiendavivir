@@ -451,7 +451,7 @@ mark{
 }
 ::-webkit-scrollbar{
 	width:10px;
-	background:#323a45;
+	background:#0193d7;
 }
 ::-webkit-scrollbar-thumb{
 	-webkit-border-radius:4px;
@@ -617,7 +617,7 @@ s{
 	background:#292f38;
 }
 .bg_color_dark_2{
-	background:#323a45;
+	background:#0193d7;
 }
 .banner_title{
 	font-size:2.28em;
@@ -692,7 +692,7 @@ blockquote:after{
 	border-bottom:1px solid #e2e6e7;
 }
 .h_top_part.type_2{
-	background:#323a45;
+	background:#0193d7;
 	color:#bdc3c7;
 	padding:6px 0;
 }
@@ -727,7 +727,7 @@ blockquote:after{
 	border-radius:4px 4px 0 0;
 }
 .menu_wrap,#footer{
-	background:#323a45;
+	background:#0193d7;
 }
 .menu_wrap.type_2:not(.sticky) .main_menu > li:first-child > a{
 	-webkit-border-top-left-radius:4px;
@@ -1112,7 +1112,7 @@ blockquote:after{
 	border-bottom-right-radius:0px;
 }
 .tabs_nav .ui-tabs-active a,.tabs_nav li:hover a[class*="color"]{
-	background:#323a45;
+	background:#0193d7;
 	color:#f9f9f9;
 }
 .tabs_content{
@@ -2606,7 +2606,7 @@ li:hover .tooltip,a:hover .tooltip,button:hover .tooltip{
 	padding:9px 0;
 }
 .widget figcaption{
-	background:#323a45;
+	background:#0193d7;
 	padding:15px 20px 14px;
 }
 .widget figcaption[class*="relative"]{
@@ -2808,7 +2808,7 @@ aside .addthis_widget_container{
 	cursor:pointer;
 }
 .a_title.active{
-	background:#323a45;
+	background:#0193d7;
 }
 .a_title [class*="us_icon"]{
 	position:absolute;

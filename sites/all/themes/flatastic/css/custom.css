@@ -506,7 +506,7 @@ td input.delete-line-item{
     border-radius: 4px;
 }
 td input.delete-line-item:hover{
-    background-color: #323a45 ;
+    background-color: #0193d7 ;
     color: #fff;
 }
 input[title$="uantity"]{
@@ -965,7 +965,7 @@ color: #292f38;
     background-color: #e74c3c;
 }
 .contact-wrapper .align-center a:hover{
-    background-color: #323a45;
+    background-color: #0193d7;
     color: #fff;
 }
 /*button shopping cart*/
@@ -1731,7 +1731,7 @@ div.c-testi ,div.c-testi  h5.color_dark{
 	display: none;
 }
 .filter_sidebar h3 {
-  background: #323a45 none repeat scroll 0 0;
+  background: #0193d7 none repeat scroll 0 0;
   padding: 15px 20px 14px;
   color: #FFF;
 }
@@ -1834,7 +1834,7 @@ h3.c-light{
     color: #fff;
     font-size: 1.4em;
     padding: 15px 85px 14px 20px;
-    background-color: #323a45;
+    background-color: #0193d7;
     border-radius: 4px 4px 0 0;
 }
 #commerce-checkout-form-checkout .commerce_coupon input.form-submit.ajax-processed{
@@ -2319,7 +2319,7 @@ margin-left: 40px;
         width: 100%;
     }
     .page-one-page #menu_button{
-        background-color: #323a45;
+        background-color: #0193d7;
     }
     .page-one-page #menu_button.active{
         background-color: #e74c3c;
