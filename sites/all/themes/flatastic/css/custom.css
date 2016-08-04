@@ -2719,3 +2719,5 @@ margin-left: 40px;
   height: auto;
 }
 .view-blog article img.tr_all_long_hover {width: 100%;}
+
+.product_item.isotope-item h5{max-width:240px;}
