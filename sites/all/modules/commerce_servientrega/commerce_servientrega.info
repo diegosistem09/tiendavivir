@@ -1,0 +1,7 @@
+name = Servientrega
+description = Custom module to integrate Servientrega shipment
+package = Commerce (contrib)
+dependencies[] = commerce
+dependencies[] = commerce_shipping
+;dependencies[] = commerce_physical
+core = 7.x

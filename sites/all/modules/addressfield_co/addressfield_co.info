@@ -1,0 +1,8 @@
+name = Addressfield Colombia
+description = This module is a plugin for Addressfield. It provides a user friendly Colombia address form.
+core = 7.x
+package = Fields
+
+; dependencies
+dependencies[] = ctools
+dependencies[] = addressfield
