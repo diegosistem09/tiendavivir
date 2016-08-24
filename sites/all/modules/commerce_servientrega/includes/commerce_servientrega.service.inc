@@ -70,6 +70,9 @@ class CommerceServientregaConnector {
     $volume_premier = $volume * $factor_premier;
 
     $shipment_price = 0;
+// error_log(print_r($weight,true),3,"/tmp/serv-vars.log");
+    // $weight = (float)$weight;
+    $weight = $weight['und'][0]['value']/1000;
 
     if ($volume_premier<$weight) {
       # code...
@@ -134,6 +137,9 @@ class CommerceServientregaConnector {
 
     $shipment_price = 0;
 
+    // $weight = (float)$weight;
+    $weight = $weight['und'][0]['value']/1000;
+
     if ($volume_premier<$weight) {
       # code...
       $volume_premier=$weight;
@@ -179,17 +185,24 @@ class CommerceServientregaConnector {
   public function getShipmentDetails($order){
 
     $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
+    //error_log(print_r($order_wrapper,true),3,"/tmp/serv-order.log");
 
     $shipping =  $order_wrapper->commerce_customer_shipping->value();
     $country_code = $shipping->commerce_customer_address['und'][0]['country'];
     $department_code = $shipping->commerce_customer_address['und'][0]['administrative_area'];
     $city_code = $shipping->commerce_customer_address['und'][0]['locality'];
     $address = $shipping->commerce_customer_address['und'][0]['thoroughfare'];
+    $email = $shipping->field_email_address['und'][0]['value'];
+    $name = $shipping->commerce_customer_address['und'][0]['name_line'];
     
     // $department_fullname = _addressfield_tokens_state($country_code, $department_code);
+    //error_log(print_r($shipping,true),3,"/tmp/serv-order.log");
 
     $arr_shipment_detail = $this->getCitiesFromCodes($city_code,$department_code,$country_code);
     $arr_shipment_detail['address']=$address;
+    $arr_shipment_detail['email']=$email;
+    $arr_shipment_detail['name']=$name;
+
     return $arr_shipment_detail;
   }
 
@@ -210,12 +223,7 @@ class CommerceServientregaConnector {
       $administrative_areas = addressfield_get_administrative_areas($country_code);
       $department = $administrative_areas[$department_code];
 
-    }    
-
-    // error_log(print_r($administrative_areas,true),3,"/tmp/serv-order.log");
-    //error_log(print_r($states,true),3,"/tmp/serv-order.log");
-    //error_log(print_r($city,true),3,"/tmp/serv-order.log");
-    //error_log(print_r($department,true),3,"/tmp/serv-order.log");
+    }
 
     return array('city'=>$city,
                  'department'=>$department,
@@ -233,7 +241,7 @@ class CommerceServientregaConnector {
     $products = $this->extractProducts($order);
     $shipment_details = $this->getShipmentDetails($order);
 
-    //error_log(print_r($products,true),3,"/tmp/serv-prod.log");
+    //error_log(print_r($shipment_details,true),3,"/tmp/serv-prod.log");
     $global_premier = 0;
     $global_corp = 0;
     foreach ($products as $key => $product) {
@@ -248,16 +256,19 @@ class CommerceServientregaConnector {
 
     }
 
-    //error_log("global-corp:$global_corp + global-pre:$global_premier \n",3,"/tmp/serv-price.log");
-
     $final_shipping = ($global_premier>$global_corp) ? $global_corp : $global_premier;
+
+    // $response=$this->setShippingOrder($order);
+
+    //Redondeo de centenas
+    $x=100;
+    $final_shipping = round(($final_shipping+$x/2)/$x)*$x;
 
     return array(
       'amount' => commerce_currency_decimal_to_amount(strval($final_shipping), 'COP'),
       'currency' => 'COP',
     );
 
-    // $response=$this->setParametersUrl();
     // error_log(print_r($response,true),3,"/tmp/serv-resp.log");
 
     // $field_name = commerce_physical_order_shipping_field_name($order);
@@ -340,6 +351,7 @@ class CommerceServientregaConnector {
                               'field_height'=>$field_height,
                               'field_length'=>$field_length,
                               'field_weight'=>$field_weight,
+                              'full_provider_data'=>$arr_proveedor,
                               );
 
       }
@@ -350,12 +362,40 @@ class CommerceServientregaConnector {
   }
 
 
+  /**
+   * Ask for the pickup of the order.
+   */
+  public function setShippingOrder($order) {
+    $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
 
+    $products = $this->extractProducts($order);
+    $shipment_details = $this->getShipmentDetails($order);
 
-  protected function setParametersUrl(){
+    //se recorren todos los productos y se genera una guia por producto
+    foreach ($products as $key => $product) {
+      # code...
+      // Para agrupar por proveedor
+      // $key_prov = $product['full_provider_data']->title;
+      // $arr_temp[$key_prov][] = $product;   
+
+      // Se llama el WS por producto
+      $response=$this->setParametersUrl($product,$shipment_details);
+
+    }
+
+    // se envian los productos agrupados por proveedor
+
+    // foreach ($arr_temp as $key => $value) {
+    //   # code...
+    //   $response=$this->setParametersUrl($value,$shipment_details);
+    // }
+    return true;
+
+  }  
+
+  protected function setParametersUrl($product,$shipping){
 
     $ns = 'http://tempuri.org/'; //Namespace of the WS.
-
     $headerbody = array('login' => $this->client,
 
                        'pwd' => $this->key,
@@ -364,14 +404,28 @@ class CommerceServientregaConnector {
 
                         'Nombre_Cargue'=>$this->name);
 
-     
     $client = new SoapClient(COMMERCE_SERVI_URL);
-
     $header = new SOAPHeader($ns, 'AuthHeader', $headerbody);    
-
     //var_dump($header);
+    $client->__setSoapHeaders($header);
 
-    $client->__setSoapHeaders($header);     
+    // $arr_products[]=array('sku'=>$sku, 
+    //                   'price'=>$commerce_price,
+    //                   'proveedor'=>$arr_proveedor->field_postal_address['und'][0],
+    //                   'currency_code'=>$currency_code,
+    //                   'field_width'=>$field_width,
+    //                   'field_height'=>$field_height,
+    //                   'field_length'=>$field_length,
+    //                   'field_weight'=>$field_weight,
+    //                   'full_provider_data'=>$arr_proveedor,
+    //                   );
+
+    //error_log(print_r($product,true),3,"/tmp/serv-set.log");     
+    //error_log(print_r($shipping,true),3,"/tmp/serv-set.log");
+
+    $arr_origen = $this->getCitiesFromCodes($product['proveedor']['locality'],$product['proveedor']['administrative_area'],$product['proveedor']['country']);
+
+    $weight = ($product['field_weight']['und'][0]['value']/1000)>3 ?  $product['field_weight']['und'][0]['value']/1000 : 3 ;
 
     $bar1 = new CargueMasivoExternoDTO();
 
@@ -403,7 +457,7 @@ class CommerceServientregaConnector {
 
     $bar1->objEnvios[0]->Des_MedioTransporte = 1;
 
-    $bar1->objEnvios[0]->Num_PesoTotal = 45;
+    $bar1->objEnvios[0]->Num_PesoTotal = $weight;
 
     $bar1->objEnvios[0]->Num_ValorDeclaradoTotal = 10000;
 
@@ -419,9 +473,9 @@ class CommerceServientregaConnector {
 
     $bar1->objEnvios[0]->Des_Ciudad = '08001000';
 
-    $bar1->objEnvios[0]->Des_Direccion = 'Cra 37 A 12 41 Sur';
+    $bar1->objEnvios[0]->Des_Direccion = $shipping['address'];
 
-    $bar1->objEnvios[0]->Nom_Contacto = 'Jorge Perez';
+    $bar1->objEnvios[0]->Nom_Contacto = $shipping['name'];//'Jorge Perez';
 
     $bar1->objEnvios[0]->Des_VlrCampoPersonalizado1 = '';
 
@@ -469,19 +523,19 @@ class CommerceServientregaConnector {
 
     $bar1->objEnvios[0]->Num_TelefonoRemitente = '';
 
-    $bar1->objEnvios[0]->Num_Alto = 3;
+    $bar1->objEnvios[0]->Num_Alto = $product['field_height']['und'][0]['value'];
 
-    $bar1->objEnvios[0]->Num_Ancho = 3;
+    $bar1->objEnvios[0]->Num_Ancho = $product['field_width']['und'][0]['value'];
 
-    $bar1->objEnvios[0]->Num_Largo = 3;
+    $bar1->objEnvios[0]->Num_Largo = $product['field_length']['und'][0]['value'];
 
     $bar1->objEnvios[0]->Des_CiudadOrigen = 'BOGOTA';
 
     //$bar1->objEnvios[0]->Des_DiceContenerSobre= '';
 
-    $bar1->objEnvios[0]->Des_DepartamentoDestino= 'DISTRITO CAPITAL';
+    $bar1->objEnvios[0]->Des_DepartamentoDestino= $shipping['department']; //'DISTRITO CAPITAL';
 
-    $bar1->objEnvios[0]->Des_DepartamentoOrigen= 'DistritoCapital';
+    $bar1->objEnvios[0]->Des_DepartamentoOrigen= $arr_origen['department'];//'DistritoCapital';
 
     $bar1->objEnvios[0]->Gen_Cajaporte= 0;
 
@@ -499,11 +553,13 @@ class CommerceServientregaConnector {
 
     $bar1->objEnvios[0]->Num_Factura= '';
 
-    $bar1->objEnvios[0]->Des_CorreoElectronico= 'andres16viper@hotmail.com';
+    $bar1->objEnvios[0]->Des_CorreoElectronico= $shipping['email']; //'andres16viper@hotmail.com';
 
     //$bar1->objEnvios[0]->Num_Celular= '';
 
     //$bar1->objEnvios[0]->Id_ArchivoCargar= '';
+
+    $bar1->objEnvios[0]->Est_EnviarCorreo= ''; 
 
     $bar1->objEnvios[0]->Num_Recaudo= '';
 
@@ -511,9 +567,12 @@ class CommerceServientregaConnector {
 
     $objEnviar= array($bar1);
 
+    //error_log(print_r($objEnviar,true),3,"/tmp/serv-res.log");     
+
     //var_dump($bar1);
 
     $result= $client->CargueMasivoExterno(array('envios'=>$objEnviar));
+    //error_log(print_r($result,true),3,"/tmp/serv-res.log");     
 
     // var_dump($result->arrayGuias->string);
 
@@ -521,171 +580,12 @@ class CommerceServientregaConnector {
 
   }
 
-  /**
-   * Returns the default data for pickup.
-   */
-  private function pickupDefaultData() {
-    return array(
-      'codigo_seguimiento' => '',
-      'codigo_alternativo' => '',
-      'dato_numerico' => '',
-      'nombre' => '',
-      'calle' => '',
-      'altura' => '',
-      'piso' => '',
-      'departamento' => '',
-      'codigo_postal' => '',
-      'localidad' => '',
-      'provincia' => '',
-      'telefono' => '',
-      'sku' => '0',
-      'descripcion_producto' => '',
-      'cantidad' => '',
-      'servicio' => 'E',
-      'valor_seguro' => 0,
-      'valor_contrareembolso' => '',
-      'autorizante' => '',
-      'modelo_sms' => '',
-      'modelo_carta_mail' => '',
-      'direccion_mail' => '',
-      'marca_de_agua' => '',
-    );
-  }
 
-  /**
-   * Ask for the pickup of the order.
-   */
-  public function setPickup($order) {
-    $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
-
-    $products = $this->extractProducts($order);
-    $shipment_details = $this->getShipmentDetails($order);
-
-    //se recorren todos los productos y se genera una guia por producto
-    foreach ($variable as $key => $value) {
-      # code...
-
-      //en algun punto sacamos los datos del origen del proveedor
-      // $arr_origen = $this->getCitiesFromCodes($proveedor['locality'],$proveedor['administrative_area'],$proveedor['country']);
-      //$proveedor['thoroughfare'] => Cr 7 # 47 12
-      
-
-
-    }
-
-    //error_log(print_r($order,true),3,"/tmp/serv-rules.log");
-
-    // $response=$this->setParametersUrl();
-
-    exit();
-
-    $shipper = str_pad($this->client, 6, '0', STR_PAD_LEFT);
-    $key = $this->key;
-
-    $url_options = array(
-      'external' => TRUE,
-      'query' => array(
-        'cliente' => $shipper,
-        'key' => $key,
-      ),
-    );
-
-    $url = url($this->getServer(), $url_options);
-
-    $data = $this->pickupDefaultData();
-
-    $data['codigo_seguimiento'] = $order_wrapper->uid->value() . '_' . $order_wrapper->order_number->value();
-    $data['dato_numerico'] = $order_wrapper->order_number->value();
-
-    $shipping_address = array();
-
-    $field_name = commerce_physical_order_shipping_field_name($order);
-    if (!empty($order_wrapper->{$field_name}->commerce_customer_address)) {
-      $shipping_address = $order_wrapper->{$field_name}->commerce_customer_address->value();
-    }
-
-    if (isset($shipping_address['name_line'])) {
-      $data['nombre'] = $shipping_address['name_line'];
-    }
-    if (isset($shipping_address['thoroughfare_name'])) {
-      $data['calle'] = $shipping_address['thoroughfare_name'];
-    }
-    if (isset($shipping_address['thoroughfare_number'])) {
-      $data['altura'] = $shipping_address['thoroughfare_number'];
-    }
-    if (isset($shipping_address['premise_number'])) {
-      $data['piso'] = $shipping_address['premise_number'];
-    }
-    if (isset($shipping_address['sub_premise_number'])) {
-      $data['departamento'] = $shipping_address['sub_premise_number'];
-    }
-    if (isset($shipping_address['postal_code'])) {
-      $data['codigo_postal'] = $shipping_address['postal_code'];
-    }
-    if (isset($shipping_address['locality'])) {
-      $data['localidad'] = $shipping_address['locality'];
-    }
-    if (
-      (isset($shipping_address['country'])) &&
-      (isset($shipping_address['administrative_area']))
-    ) {
-      module_load_include('inc', 'addressfield', 'addressfield.administrative_areas');
-
-      if (
-        ($administrative_areas = addressfield_get_administrative_areas($shipping_address['country'])) &&
-        (isset($administrative_areas[$shipping_address['administrative_area']]))
-      ) {
-        $data['provincia'] = $administrative_areas[$shipping_address['administrative_area']];
-      }
-    }
-    if (isset($shipping_address['phone_number'])) {
-      $data['telefono'] = $shipping_address['phone_number'];
-    }
-
-    if ($products = $this->extractProducts($order)) {
-      $data['cantidad'] = count($products);
-    }
-
-    $request_data = 'datos=' . json_encode(array(1 => $data));
-
-    $request_options = array(
-      'method' => 'POST',
-      'headers' => array(
-        'Content-Type' => 'application/x-www-form-urlencoded',
-      ),
-      'data' => $request_data,
-    );
-
-    $response = drupal_http_request($url, $request_options);
-
-    if ($response->code != '200') {
-      throw new CommerceServientregaException(t("There was a problem connecting with Urbano's WS."));
-    }
-
-    if (
-      (empty($response->data)) ||
-      (!$response_xml = @simplexml_load_string($response->data))
-    ) {
-      throw new CommerceServientregaException(t("Urbano's WS returned an invalid XML."));
-    }
-
-    if (!empty($response_xml->codErr)) {
-      throw new CommerceServientregaException(t("There was an error setting the shipment's pickup: @error", array('@error' => $response_xml->descErr)));
-    }
-
-    if (
-      (!isset($response_xml->info->registrosRecibidos)) ||
-      (!isset($response_xml->info->registrosEmitir)) ||
-      ((int) $response_xml->info->registrosRecibidos != (int) $response_xml->info->registrosEmitir)
-    ) {
-      throw new CommerceServientregaException(t("There was an error setting the shipment's pickup"));
-    }
-  }
 
 }
 
 /**
- * Custom exception for Urbano.
+ * Custom exception for Servientrega.
  */
 class CommerceServientregaException extends Exception {
 }
@@ -830,5 +730,7 @@ class EnvioExterno {
     var $Id_ArchivoCargar;
 
     var $Num_Recaudo;
+
+    var $Est_EnviarCorreo;
 
 }
