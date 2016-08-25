@@ -38,7 +38,7 @@ function commerce_servientrega_set_shipment($order) {
     module_load_include('inc', 'commerce_servientrega', 'includes/commerce_servientrega.service');
 
     $servientrega = new CommerceServientregaConnector();
-    $servientrega->setPickup($order);
+    $servientrega->setShippingOrder($order);
 
     if (module_exists('commerce_shipment_message')) {
       commerce_shipment_message_log_message($order, 'servientrega_shipping_service');
