@@ -371,6 +371,8 @@ class CommerceServientregaConnector {
     $products = $this->extractProducts($order);
     $shipment_details = $this->getShipmentDetails($order);
 
+     watchdog('Servientrega','Ejecuto el llamado automaticamente');
+
     //se recorren todos los productos y se genera una guia por producto
     foreach ($products as $key => $product) {
       # code...
@@ -572,6 +574,9 @@ class CommerceServientregaConnector {
     //var_dump($bar1);
 
     $result= $client->CargueMasivoExterno(array('envios'=>$objEnviar));
+
+    watchdog('Servientrega','La guia es: ' . $result->arrayGuias->string);
+
     //error_log(print_r($result,true),3,"/tmp/serv-res.log");     
 
     // var_dump($result->arrayGuias->string);
