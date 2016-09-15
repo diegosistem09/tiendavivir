@@ -650,18 +650,19 @@ class CommerceServientregaConnector {
 
     //var_dump($bar1);
 
-    $result= $client->CargueMasivoExterno(array('envios'=>$objEnviar));
+    try{
 
-    watchdog('Servientrega','La guia es: ' . $result->arrayGuias->string);
+      $result= $client->CargueMasivoExterno(array('envios'=>$objEnviar));
+      watchdog('Servientrega','La guia es: ' . $result->arrayGuias->string);
 
-    $last_req = $client->__getLastRequest();
+      return $result->arrayGuias->string;
 
-    //error_log(print_r($last_req,true),3,"/tmp/serv-res.log");     
-    //error_log(print_r($result,true),3,"/tmp/serv-res.log");  
+    } catch (Exception $e) {
+      // echo "REQUEST:\n" . $client->__getLastRequest();
+      // echo 'Caught exception: ',  $e->getMessage(), "\n";
+      return "Error en la transaccion";
+    }
 
-    // var_dump($result->arrayGuias->string);
-
-    return $result->arrayGuias->string;
 
   }
 
