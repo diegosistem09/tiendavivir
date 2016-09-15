@@ -74,11 +74,18 @@ class CommerceServientregaConnector {
     // $weight = (float)$weight;
     $weight = $weight['und'][0]['value']/1000;
 
+    //error_log("peso en kilos: $weight \n",3,"/tmp/serv-price.log");
+    //error_log("volumen premier: $volume_premier \n",3,"/tmp/serv-price.log");
+
+
     if ($volume_premier<$weight) {
       # code...
       $volume_premier=$weight;
 
     }
+
+    //error_log("volumen premier2: $volume_premier \n",3,"/tmp/serv-price.log");
+
     //se redondea al valor mas alto
     $volume_premier=round($volume_premier,0, PHP_ROUND_HALF_EVEN);
 
@@ -92,6 +99,8 @@ class CommerceServientregaConnector {
     $sql = "SELECT * FROM {servientrega_premier} WHERE ciudad_destino like '$destino_city'
             and departamento_destino like '$destino_dep' and ciudad_origen like '$origen_city' LIMIT 1";
 
+    //error_log(print_r($sql,true),3,"/tmp/serv-query.log");
+
     $result = db_query($sql);
     
     if ($result) {
@@ -100,8 +109,10 @@ class CommerceServientregaConnector {
         //    $row['name']
         $trayecto = $row['tipo_trayecto'];
         //error_log(print_r($row,true),3,"/tmp/serv-query.log");
+        //error_log(print_r($sql,true),3,"/tmp/serv-query.log");
       }
     }else{
+      //error_log(print_r($row,true),3,"/tmp/serv-query.log");
 
       return -99;
     }
@@ -202,6 +213,8 @@ class CommerceServientregaConnector {
     $arr_shipment_detail['address']=$address;
     $arr_shipment_detail['email']=$email;
     $arr_shipment_detail['name']=$name;
+    $arr_shipment_detail['department_code']=$department_code;
+    $arr_shipment_detail['city_code']=$city_code;
 
     return $arr_shipment_detail;
   }
@@ -230,6 +243,28 @@ class CommerceServientregaConnector {
                  );
   }
 
+  public function getDaneId($city,$department){
+
+    $sql = "SELECT * FROM {dane_codes} WHERE ciudad like '$city'
+        and departamento like '$department' LIMIT 1";
+
+    //error_log(print_r($sql,true),3,"/tmp/serv-query.log");
+
+    $result = db_query($sql);
+    
+    if ($result) {
+      while ($row = $result->fetchAssoc()) {
+        // Do something with:
+        //    $row['name']
+        $codigo = $row['codigo'];
+        //error_log(print_r($row,true),3,"/tmp/serv-query.log");
+      }
+    }else{
+
+      return -99;
+    }
+    return $codigo;
+  }
 
 
   /**
@@ -246,17 +281,28 @@ class CommerceServientregaConnector {
     $global_corp = 0;
     foreach ($products as $key => $product) {
 
-      $volume = (($product['field_width']['und'][0]['value'])/100) * (($product['field_height']['und'][0]['value'])/100) * (($product['field_length']['und'][0]['value'])/100);
-      
-      $ship_premier = $this ->getPremierShipment($volume,$product['field_weight'],$product['price'],$product['currency_code'],$shipment_details['city'],$shipment_details['department'],$product['proveedor']);
-      $global_premier += $ship_premier;
+      for ($i=0; $i <$product['quantity'] ; $i++) { 
+        # code...
+        $volume = ((($product['field_width']['und'][0]['value'])/100) * (($product['field_height']['und'][0]['value'])/100) * (($product['field_length']['und'][0]['value'])/100));
+        
+        $ship_premier = $this ->getPremierShipment($volume,$product['field_weight'],$product['price'],$product['currency_code'],$shipment_details['city'],$shipment_details['department'],$product['proveedor']);
+        $global_premier += $ship_premier;
 
-      $ship_corp = $this ->getCorpShipment($volume,$product['field_weight'],$product['price'],$product['currency_code'],$shipment_details['city'],$shipment_details['department'],$product['proveedor']);
-      $global_corp += $ship_corp;
+        // $ship_corp = $this ->getCorpShipment($volume,$product['field_weight'],$product['price'],$product['currency_code'],$shipment_details['city'],$shipment_details['department'],$product['proveedor']);
+        // $global_corp += $ship_corp;
+
+      }
+      
+
+      // $ship_corp = $this ->getCorpShipment($volume,$product['field_weight'],$product['price'],$product['currency_code'],$shipment_details['city'],$shipment_details['department'],$product['proveedor']);
+      // $global_corp += $ship_corp;
 
     }
 
-    $final_shipping = ($global_premier>$global_corp) ? $global_corp : $global_premier;
+    // $final_shipping = ($global_premier>$global_corp) ? $global_corp : $global_premier;
+    $final_shipping = $global_premier;
+
+    $shipping_type = ($final_shipping==$global_premier) ? "Premier" : "Corporativo" ;
 
     // $response=$this->setShippingOrder($order);
 
@@ -267,6 +313,7 @@ class CommerceServientregaConnector {
     return array(
       'amount' => commerce_currency_decimal_to_amount(strval($final_shipping), 'COP'),
       'currency' => 'COP',
+      'type' => $shipping_type,
     );
 
     // error_log(print_r($response,true),3,"/tmp/serv-resp.log");
@@ -294,6 +341,8 @@ class CommerceServientregaConnector {
     foreach ($order_wrapper->commerce_line_items as $delta => $line_item_wrapper) {
       $line_item[] = $line_item_wrapper->value();
     }
+    
+    //error_log(print_r($line_item,true),3,"/tmp/serv-prod.log");
 
     foreach ($line_item as $key => $product) {
       # code...
@@ -352,6 +401,7 @@ class CommerceServientregaConnector {
                               'field_length'=>$field_length,
                               'field_weight'=>$field_weight,
                               'full_provider_data'=>$arr_proveedor,
+                              'quantity'=>$product->quantity,
                               );
 
       }
@@ -366,36 +416,62 @@ class CommerceServientregaConnector {
    * Ask for the pickup of the order.
    */
   public function setShippingOrder($order) {
+
     $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
 
     $products = $this->extractProducts($order);
     $shipment_details = $this->getShipmentDetails($order);
+    
+    //error_log(print_r($products,true),3,"/tmp/serv-set.log");     
 
-     watchdog('Servientrega','Ejecuto el llamado automaticamente');
+    $shipping =  $order_wrapper->commerce_customer_shipping->value();
+    $arr_order_total = $order_wrapper->commerce_order_total->value();
 
-    //se recorren todos los productos y se genera una guia por producto
-    foreach ($products as $key => $product) {
+    //error_log(print_r($arr_order_total,true),3,"/tmp/serv-order.log");
+
+
+    $arr_order_total = $arr_order_total['data']['components'];
+
+    foreach ($arr_order_total as $key => $value) {
       # code...
-      // Para agrupar por proveedor
-      // $key_prov = $product['full_provider_data']->title;
-      // $arr_temp[$key_prov][] = $product;   
-
-      // Se llama el WS por producto
-      $response=$this->setParametersUrl($product,$shipment_details);
-
+      if ($value['name']=='shipping') {
+        # code...
+        $arr_shipping = $value;
+      }elseif ($value['name']=='base_price') {
+        # code...
+        $arr_base_price = $value;
+      }
     }
 
-    // se envian los productos agrupados por proveedor
+    watchdog('Servientrega','Ejecuto el llamado automaticamente');
+    //error_log(print_r($arr_shipping,true),3,"/tmp/serv-order.log");
 
-    // foreach ($arr_temp as $key => $value) {
-    //   # code...
-    //   $response=$this->setParametersUrl($value,$shipment_details);
-    // }
+    $guias= '';
+    //se recorren todos los productos y se genera una guia por producto premier
+    if ($arr_shipping['price']['data']['type']=='Premier') {
+      foreach ($products as $key => $product) { 
+
+        // Se llama el WS por producto
+        for ($i=0; $i < $product['quantity']; $i++) { 
+          # code...
+          $response=$this->setParametersUrlPremier($product,$shipment_details);
+          watchdog('Servientrega','La guia es: ' . $response);
+          $guias .= "$response,";               
+        }
+      }
+    }else{
+
+      $response=$this->setParametersUrlCorp($products,$shipment_details);
+      watchdog('Servientrega','La guia es: ' . $response);
+      $guias .= "$response,";
+    }
+
+
     return true;
 
   }  
 
-  protected function setParametersUrl($product,$shipping){
+  protected function setParametersUrlPremier($product,$shipping){
 
     $ns = 'http://tempuri.org/'; //Namespace of the WS.
     $headerbody = array('login' => $this->client,
@@ -406,21 +482,10 @@ class CommerceServientregaConnector {
 
                         'Nombre_Cargue'=>$this->name);
 
-    $client = new SoapClient(COMMERCE_SERVI_URL);
+    $client = new SoapClient(COMMERCE_SERVI_URL,array("trace" => 1,"exceptions"=>0 ));
     $header = new SOAPHeader($ns, 'AuthHeader', $headerbody);    
     //var_dump($header);
     $client->__setSoapHeaders($header);
-
-    // $arr_products[]=array('sku'=>$sku, 
-    //                   'price'=>$commerce_price,
-    //                   'proveedor'=>$arr_proveedor->field_postal_address['und'][0],
-    //                   'currency_code'=>$currency_code,
-    //                   'field_width'=>$field_width,
-    //                   'field_height'=>$field_height,
-    //                   'field_length'=>$field_length,
-    //                   'field_weight'=>$field_weight,
-    //                   'full_provider_data'=>$arr_proveedor,
-    //                   );
 
     //error_log(print_r($product,true),3,"/tmp/serv-set.log");     
     //error_log(print_r($shipping,true),3,"/tmp/serv-set.log");
@@ -428,6 +493,18 @@ class CommerceServientregaConnector {
     $arr_origen = $this->getCitiesFromCodes($product['proveedor']['locality'],$product['proveedor']['administrative_area'],$product['proveedor']['country']);
 
     $weight = ($product['field_weight']['und'][0]['value']/1000)>3 ?  $product['field_weight']['und'][0]['value']/1000 : 3 ;
+
+    $dane_code = $this->getDaneId($shipping['city'],$shipping['department']);
+
+    if (strlen($dane_code)==7) {
+      # code...
+      $dane_code = "0".$dane_code;
+    }
+
+    //error_log(print_r($dane_code,true),3,"/tmp/serv-set.log");     
+
+
+    $quantity=1;
 
     $bar1 = new CargueMasivoExternoDTO();
 
@@ -443,7 +520,7 @@ class CommerceServientregaConnector {
 
     $bar1->objEnvios[0]->Doc_Relacionado = '';
 
-    $bar1->objEnvios[0]->Num_Piezas = 1;
+    $bar1->objEnvios[0]->Num_Piezas = $quantity; //1;
 
     $bar1->objEnvios[0]->Des_TipoTrayecto = 0;
 
@@ -461,7 +538,7 @@ class CommerceServientregaConnector {
 
     $bar1->objEnvios[0]->Num_PesoTotal = $weight;
 
-    $bar1->objEnvios[0]->Num_ValorDeclaradoTotal = 10000;
+    $bar1->objEnvios[0]->Num_ValorDeclaradoTotal = $product['price'];//10000;
 
     $bar1->objEnvios[0]->Num_VolumenTotal = 0;
 
@@ -473,7 +550,7 @@ class CommerceServientregaConnector {
 
     $bar1->objEnvios[0]->Des_Telefono = '5555555';
 
-    $bar1->objEnvios[0]->Des_Ciudad = '08001000';
+    $bar1->objEnvios[0]->Des_Ciudad = $dane_code;//'08001000';
 
     $bar1->objEnvios[0]->Des_Direccion = $shipping['address'];
 
@@ -569,6 +646,180 @@ class CommerceServientregaConnector {
 
     $objEnviar= array($bar1);
 
+    ////error_log(print_r($objEnviar,true),3,"/tmp/serv-res.log");     
+
+    //var_dump($bar1);
+
+    $result= $client->CargueMasivoExterno(array('envios'=>$objEnviar));
+
+    watchdog('Servientrega','La guia es: ' . $result->arrayGuias->string);
+
+    $last_req = $client->__getLastRequest();
+
+    //error_log(print_r($last_req,true),3,"/tmp/serv-res.log");     
+    //error_log(print_r($result,true),3,"/tmp/serv-res.log");  
+
+    // var_dump($result->arrayGuias->string);
+
+    return $result->arrayGuias->string;
+
+  }
+
+  protected function setParametersUrlCorp($product,$shipping){
+
+    $ns = 'http://tempuri.org/'; //Namespace of the WS.
+    $headerbody = array('login' => $this->client,
+
+                       'pwd' => $this->key,
+
+                       'Id_CodFacturacion'=>$this->invoice_code,
+
+                        'Nombre_Cargue'=>$this->name);
+
+    $client = new SoapClient(COMMERCE_SERVI_URL);
+    $header = new SOAPHeader($ns, 'AuthHeader', $headerbody);    
+    //var_dump($header);
+    $client->__setSoapHeaders($header);
+
+    //error_log(print_r($product,true),3,"/tmp/serv-set.log");     
+    //error_log(print_r($shipping,true),3,"/tmp/serv-set.log");
+
+    $arr_origen = $this->getCitiesFromCodes($product['proveedor']['locality'],$product['proveedor']['administrative_area'],$product['proveedor']['country']);
+
+    $weight = ($product['field_weight']['und'][0]['value']/1000)>3 ?  $product['field_weight']['und'][0]['value']/1000 : 3 ;
+
+    $dane_code = $this->getDaneId($shipping['city'],$shipping['department']);
+
+    $quantity=0;
+    $total_price=0;
+
+    foreach ($product as $key => $value) {
+      # code...
+      $quantity += $value['quantity'];
+      $total_price += $value['price'];
+    }
+    
+
+    $bar1 = new CargueMasivoExternoDTO();
+
+    $bar1->objEnvios[0] = new EnvioExterno();
+
+    #Caracteristicas envio
+    $bar1->objEnvios[0]->Num_Guia = 0;
+    $bar1->objEnvios[0]->Num_Sobreporte = 0;
+    $bar1->objEnvios[0]->Num_SobreCajaPorte=0;
+    //$bar1->objEnvios[0]->Fec_TiempoEntrega = '';
+    $bar1->objEnvios[0]->Des_TipoTrayecto = 0;
+    //$bar1->objEnvios[0]->Ide_CodFacturacion = '';
+    $bar1->objEnvios[0]->Num_Piezas = $quantity; //cantidad de piezas fisicas
+    $bar1->objEnvios[0]->Des_FormaPago = 2;
+    $bar1->objEnvios[0]->Des_MedioTransporte = 1;
+    $bar1->objEnvios[0]->Des_TipoDuracionTrayecto = 1;
+    //$bar1->objEnvios[0]->Nom_TipoTrayecto = '';
+    $bar1->objEnvios[0]->Num_Alto = 0;
+    $bar1->objEnvios[0]->Num_Ancho = 0;
+    $bar1->objEnvios[0]->Num_Largo = 0;
+    $bar1->objEnvios[0]->Num_PesoTotal = 0;
+    $bar1->objEnvios[0]->Des_UnidadLongitud= 'cm';
+    $bar1->objEnvios[0]->Des_UnidadPeso= 'kg';
+    $bar1->objEnvios[0]->Nom_UnidadEmpaque= 'GENERICA';
+    $bar1->objEnvios[0]->Gen_Cajaporte= 0;
+    $bar1->objEnvios[0]->Gen_Sobreporte= 0;
+    //$bar1->objEnvios[0]->Des_DiceContenerSobre= '';
+    $bar1->objEnvios[0]->Doc_Relacionado = ''; //opcional
+    $bar1->objEnvios[0]->Des_VlrCampoPersonalizado1 = ''; //opcional
+    //$bar1->objEnvios[0]->Ide_Num_Referencia_Dest = ''; //opcional
+    $bar1->objEnvios[0]->Num_Factura= ''; //opcional
+
+    #Tipo producto
+    $bar1->objEnvios[0]->Ide_Producto = 2;
+    $bar1->objEnvios[0]->Num_Recaudo= ''; //solo contra entrega
+
+    #Informacion fija
+    $bar1->objEnvios[0]->Ide_Destinatarios = '00000000-0000-0000-0000-000000000000';
+    $bar1->objEnvios[0]->Ide_Manifiesto = '00000000-0000-0000-0000-000000000000';
+    $bar1->objEnvios[0]->Num_BolsaSeguridad = 0;
+    $bar1->objEnvios[0]->Num_Precinto = 0;
+    $bar1->objEnvios[0]->Num_VolumenTotal = 0;
+    //$bar1->objEnvios[0]->Des_DireccionRecogida = '';
+    //$bar1->objEnvios[0]->Des_TelefonoRecogida = '';
+    //$bar1->objEnvios[0]->Des_CiudadRecogida = '';
+    $bar1->objEnvios[0]->Num_PesoFacturado = 0;
+    $bar1->objEnvios[0]->Des_TipoGuia = 0;
+    //$bar1->objEnvios[0]->Id_ArchivoCargar= '';
+    $bar1->objEnvios[0]->Des_CiudadOrigen = 'BOGOTA';
+
+    #Valores
+    $bar1->objEnvios[0]->Num_ValorDeclaradoTotal = $total_price; //valor declarado del envio total
+    $bar1->objEnvios[0]->Num_ValorLiquidado = 0;
+    $bar1->objEnvios[0]->Num_VlrSobreflete= 0;
+    $bar1->objEnvios[0]->Num_VlrFlete= 0;
+    $bar1->objEnvios[0]->Num_Descuento= 0;
+    $bar1->objEnvios[0]->Num_ValorDeclaradoSobreTotal= 0;
+
+    #Informacion del destinatario
+    $bar1->objEnvios[0]->Des_Telefono = '5555555';
+    $bar1->objEnvios[0]->Des_Ciudad = $dane_code; //'76001';
+    $bar1->objEnvios[0]->Des_DepartamentoDestino= $shipping['department']; //'DISTRITO CAPITAL';
+    $bar1->objEnvios[0]->Des_Direccion = $shipping['address'];//'Cra 37 A 12 41 Sur';
+    $bar1->objEnvios[0]->Nom_Contacto = $shipping['name'];//'Jorge Perez';
+    $bar1->objEnvios[0]->Des_DiceContener = 'POliza SOAT';
+    //$bar1->objEnvios[0]->Ide_Num_Identific_Dest = '';
+    //$bar1->objEnvios[0]->Num_Celular= '';
+    $bar1->objEnvios[0]->Des_CorreoElectronico= $shipping['email'];//'malo@hotmail.com';
+
+    #Informacion Remitente
+    //$bar1->objEnvios[0]->Des_CiudadRemitente ='';
+    $bar1->objEnvios[0]->Des_DireccionRemitente = '';
+    $bar1->objEnvios[0]->Des_DepartamentoOrigen= 'DistritoCapital';
+    $bar1->objEnvios[0]->Num_TelefonoRemitente = '';
+    $bar1->objEnvios[0]->Num_IdentiRemitente = '';
+    //$bar1->objEnvios[0]->Nom_Remitente = '';
+
+    #Matorista
+    $bar1->objEnvios[0]->Est_CanalMayorista = 0;
+    $bar1->objEnvios[0]->Nom_RemitenteCanal= '';
+
+    //$bar1->objEnvios[0]->Des_IdArchivoOrigen = '';
+
+    $bar1->objEnvios[0]->Est_EnviarCorreo= ''; 
+
+    //$bar1->objEnvios[0]->Fec_Creacion = '';
+
+    $bar1->objEnvios[0]->idePaisOrigen= 0;
+
+    $bar1->objEnvios[0]->idePaisDestino= 0;
+
+    #MERCANCIA INDUSTRIAL
+
+    $bar1->objEnvios[0]->objEnviosUnidadEmpaqueCargue = new objEnviosUnidadEmpaqueCargue();
+
+    foreach ($product as $key => $value) {
+      # code...
+    
+      for ($i=0; $i <$value['quantity'] ; $i++) { 
+        # code...
+      
+      $bar1->objEnvios[0]->objEnviosUnidadEmpaqueCargue->EnviosUnidadEmpaqueCargue[$i]['Num_Guia']=0;
+      $bar1->objEnvios[0]->objEnviosUnidadEmpaqueCargue->EnviosUnidadEmpaqueCargue[$i]['Num_Alto']=0;
+      $bar1->objEnvios[0]->objEnviosUnidadEmpaqueCargue->EnviosUnidadEmpaqueCargue[$i]['Num_Distribuidor']=0;
+      $bar1->objEnvios[0]->objEnviosUnidadEmpaqueCargue->EnviosUnidadEmpaqueCargue[$i]['Num_Ancho']=0;
+      $bar1->objEnvios[0]->objEnviosUnidadEmpaqueCargue->EnviosUnidadEmpaqueCargue[$i]['Num_Cantidad']=0;
+      $bar1->objEnvios[0]->objEnviosUnidadEmpaqueCargue->EnviosUnidadEmpaqueCargue[$i]['Num_Largo']=0;
+      $bar1->objEnvios[0]->objEnviosUnidadEmpaqueCargue->EnviosUnidadEmpaqueCargue[$i]['Num_Peso']=0;
+      $bar1->objEnvios[0]->objEnviosUnidadEmpaqueCargue->EnviosUnidadEmpaqueCargue[$i]['Ide_UnidadEmpaque']='00000000-0000-0000-0000-000000000000';
+      $bar1->objEnvios[0]->objEnviosUnidadEmpaqueCargue->EnviosUnidadEmpaqueCargue[$i]['Ide_Envio']='00000000-0000-0000-0000-000000000000';
+      $bar1->objEnvios[0]->objEnviosUnidadEmpaqueCargue->EnviosUnidadEmpaqueCargue[$i]['Num_Consecutivo']=0;
+      }
+
+      
+    }
+
+
+    $obj2 = array();
+
+    $objEnviar= array($bar1);
+
     //error_log(print_r($objEnviar,true),3,"/tmp/serv-res.log");     
 
     //var_dump($bar1);
@@ -581,10 +832,9 @@ class CommerceServientregaConnector {
 
     // var_dump($result->arrayGuias->string);
 
-    return $result;
+    return $result->arrayGuias->string;
 
   }
-
 
 
 }
@@ -595,7 +845,11 @@ class CommerceServientregaConnector {
 class CommerceServientregaException extends Exception {
 }
 
+class objEnviosUnidadEmpaqueCargue{
 
+  public $EnviosUnidadEmpaqueCargue= array();
+
+}
 
 
 class CargueMasivoExternoDTO{
