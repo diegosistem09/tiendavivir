@@ -483,20 +483,19 @@ function flatastic_form_alter(&$form, &$form_state, $form_id) {
         $form['buttons']['back']['#attributes']['class'][] = 'button_type_6 bg_scheme_color f_size_large r_corners tr_all_hover color_light m_bottom_20';
         //kpr($form);
     }
-    if ($form_id == 'search_block_form') {
-        $form['#attributes']['class'][] = 'd_inline_middle full_width';
+    if ($form_id == 'search_block_form') {$form['#attributes']['class'][] = 'd_inline_middle full_width';
         $form['#attributes']['role'] = 'search';
-        $form['search_block_form']['#default_value'] = t('Type text and hit enter'); // Set a default value for the textfield
+        $form['search_block_form']['#default_value'] = t(''); // Set a default value for the textfield
         $form['search_block_form']['#attributes']['class'][] = 'f_size_large';
-
+        #diego poveda
         // Add extra attributes to the text box
-        $form['search_block_form']['#attributes']['onblur'] = "if (this.value == '') {this.value = 'Type text and hit enter';}";
-        $form['search_block_form']['#attributes']['onfocus'] = "if (this.value == 'Type text and hit enter') {this.value = '';}";
+        #$form['search_block_form']['#attributes']['onblur'] = "if (this.value == '') {this.value = 'Type text and hit enter';}";
+        $form['search_block_form']['#attributes']['onfocus'] = "if (this.value == '') {this.value = '';}";
         // Prevent user from searching the default text
-        $form['#attributes']['onsubmit'] = "if(this.search_block_form.value=='Type text and hit enter'){ alert('Please enter a search'); return false; }";
+        #$form['#attributes']['onsubmit'] = "if(this.search_block_form.value=='Type text and hit enter'){ alert('Please entere a search'); return false; }";
 
         // Alternative (HTML5) placeholder attribute instead of using the javascript
-        $form['search_block_form']['#attributes']['placeholder'] = t('Type text and hit enter');
+        $form['search_block_form']['#attributes']['placeholder'] = t('Escribe tu producto');
     }
     if($form_id == 'comment_node_blog_form'){
         //Add class for comment node blog
